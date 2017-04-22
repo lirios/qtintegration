@@ -1,0 +1,30 @@
+language: c
+
+compiler:
+  - gcc
+  - clang
+
+sudo: required
+
+arch:
+  repos:
+    - fluid=https://dl.bintray.com/liri/archlinux-develop/$arch/
+    - liri-gsettings=https://dl.bintray.com/liri/archlinux-develop/$arch/
+  packages:
+    - qt5-quickcontrols2
+    - xorg-server-xvfb
+    - clang
+    #- clazy-git
+  script:
+    - mkdir build && cd build
+    - if [ "$CC" = "gcc" ]; then qmake -spec linux-g++ CONFIG+=use_qt_paths ..; fi
+    #- if [ "$CC" = "clang" ]; then qmake -spec linux-clang CONFIG+=use_qt_paths QMAKE_CXX="clazy" ..; fi
+    - if [ "$CC" = "clang" ]; then qmake -spec linux-clang CONFIG+=use_qt_paths ..; fi
+    - make -j$(nproc)
+
+script:
+  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+
+notifications:
+  email: false
+  slack: lirios:fdUqVmPzqPskEL1UBhqapZ0w

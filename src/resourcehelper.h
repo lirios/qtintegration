@@ -27,7 +27,7 @@
 #pragma once
 
 #include <QtGui/QPalette>
-#include <qpa/qplatformtheme.h>
+#include <QtGui/qpa/qplatformtheme.h>
 
 class ResourceHelper
 {

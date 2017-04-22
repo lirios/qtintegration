@@ -35,7 +35,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
 
-#include <Vibe/Settings/QGSettings>
+#include <LiriGSettings/QGSettings>
 
 #include "hintssettings.h"
 

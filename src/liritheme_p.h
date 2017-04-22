@@ -26,9 +26,9 @@
 
 #pragma once
 
-#include <qpa/qplatformtheme_p.h>
+#include <QtGui/qpa/qplatformtheme_p.h>
 
-#include <Vibe/Settings/QGSettings>
+#include <LiriGSettings/QGSettings>
 
 #include "liritheme.h"
 #include "resourcehelper.h"

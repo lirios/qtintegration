@@ -1,10 +1,7 @@
 /****************************************************************************
  * This file is part of Liri.
  *
- * Copyright (C) 2010-2016 Pier Luigi Fiorini
- *
- * Author(s):
- *    Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+ * Copyright (C) 2017 Pier Luigi Fiorini  <pierluigi.fiorini@gmail.com>
  *
  * $BEGIN_LICENSE:GPL3+$
  *
@@ -26,23 +23,6 @@
 
 #pragma once
 
-#include <QtCore/QHash>
-#include <QtCore/QVariant>
-#include <QtGui/qpa/qplatformtheme.h>
+#include <QtCore/QLoggingCategory>
 
-class LiriThemePrivate;
-
-class Q_GUI_EXPORT LiriTheme : public QPlatformTheme
-{
-    Q_DECLARE_PRIVATE(LiriTheme)
-public:
-    LiriTheme();
-
-    bool usePlatformNativeDialog(DialogType type) const;
-    QPlatformDialogHelper *createPlatformDialogHelper(DialogType type) const;
-
-    const QPalette *palette(Palette type = SystemPalette) const;
-    const QFont *font(Font type = SystemFont) const;
-
-    QVariant themeHint(ThemeHint hint) const;
-};
+Q_DECLARE_LOGGING_CATEGORY(gLcPlatformTheme)

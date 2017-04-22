@@ -24,7 +24,7 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#include <qpa/qplatformthemeplugin.h>
+#include <QtGui/qpa/qplatformthemeplugin.h>
 
 #include "liritheme.h"
 

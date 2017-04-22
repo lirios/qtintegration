@@ -28,7 +28,7 @@
 #include <QtCore/QStandardPaths>
 #include <QtGui/QFont>
 #include <QtGui/QPalette>
-#include <qpa/qplatformtheme.h>
+#include <QtGui/qpa/qplatformtheme.h>
 
 #include "liritheme_p.h"
 #include "hintssettings.h"
