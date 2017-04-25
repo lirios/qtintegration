@@ -8,7 +8,9 @@ PLUGIN_EXTENDS = -
 PLUGIN_CLASS_NAME = LiriThemePlugin
 load(liri_qt_plugin)
 
-QT += gui widgets quickcontrols2 gui-private LiriGSettings
+QT += gui widgets quickcontrols2 gui-private
+CONFIG += link_pkgconfig no_install_prl
+PKGCONFIG += Qt5GSettings
 
 HEADERS += \
     $$PWD/src/hintssettings.h \
