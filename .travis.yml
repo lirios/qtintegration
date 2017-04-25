@@ -9,18 +9,19 @@ sudo: required
 arch:
   repos:
     - fluid=https://dl.bintray.com/liri/archlinux-develop/$arch/
-    - liri-gsettings=https://dl.bintray.com/liri/archlinux-develop/$arch/
+    - qtgsettings=https://dl.bintray.com/liri/archlinux-develop/$arch/
   packages:
     - qt5-quickcontrols2
     - xorg-server-xvfb
     - clang
     #- clazy-git
   script:
-    - mkdir build && cd build
-    - if [ "$CC" = "gcc" ]; then qmake -spec linux-g++ CONFIG+=use_qt_paths ..; fi
-    #- if [ "$CC" = "clang" ]; then qmake -spec linux-clang CONFIG+=use_qt_paths QMAKE_CXX="clazy" ..; fi
-    - if [ "$CC" = "clang" ]; then qmake -spec linux-clang CONFIG+=use_qt_paths ..; fi
-    - make -j$(nproc)
+    - export CLAZY_CHECKS="level1"
+    - mkdir build
+    - if [ "$CC" = "gcc" ]; then cd build && qmake -spec linux-g++ CONFIG+=use_qt_paths ../platformtheme.pro; fi
+    #- if [ "$CC" = "clang" ]; then cd build && qmake -spec linux-clang CONFIG+=use_qt_paths QMAKE_CXX="clazy" ../platformtheme.pro; fi
+    - if [ "$CC" = "clang" ]; then cd build && qmake -spec linux-clang CONFIG+=use_qt_paths ../platformtheme.pro; fi
+    - cd build && make -j$(nproc)
 
 script:
   - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
