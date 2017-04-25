@@ -28,7 +28,7 @@
 
 #include <QtGui/qpa/qplatformtheme_p.h>
 
-#include <LiriGSettings/QGSettings>
+#include <QtGSettings/QGSettings>
 
 #include "liritheme.h"
 #include "resourcehelper.h"
@@ -44,6 +44,6 @@ public:
     void refresh();
 
     ResourceHelper resources;
-    Vibe::QGSettings *settings;
+    QtGSettings::QGSettings *settings;
     HintsSettings *hints;
 };

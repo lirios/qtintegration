@@ -41,8 +41,8 @@ static int defaultMonospaceFontSize = 11;
 
 LiriThemePrivate::LiriThemePrivate()
 {
-    settings = new Vibe::QGSettings(QStringLiteral("io.liri.desktop.interface"),
-                                      QStringLiteral("/io/liri/desktop/interface/"));
+    settings = new QtGSettings::QGSettings(QStringLiteral("io.liri.desktop.interface"),
+                                           QStringLiteral("/io/liri/desktop/interface/"));
     hints = new HintsSettings(settings);
 }
 

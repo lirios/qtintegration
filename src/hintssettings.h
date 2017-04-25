@@ -30,7 +30,7 @@
 
 #include "liritheme.h"
 
-namespace Vibe {
+namespace QtGSettings {
 class QGSettings;
 }
 
@@ -38,7 +38,7 @@ class HintsSettings : public QObject
 {
     Q_OBJECT
 public:
-    HintsSettings(Vibe::QGSettings *settings, QObject *parent = 0);
+    HintsSettings(QtGSettings::QGSettings *settings, QObject *parent = 0);
 
     inline QVariant themeHint(QPlatformTheme::ThemeHint hint) const {
         if (m_hints.contains(hint))
@@ -49,7 +49,7 @@ public:
     void collectHints();
 
 private:
-    Vibe::QGSettings *m_settings;
+    QtGSettings::QGSettings *m_settings;
     QHash<QPlatformTheme::ThemeHint, QVariant> m_hints;
 
     Qt::ToolButtonStyle toolButtonStyle(const QVariant &value);

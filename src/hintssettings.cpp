@@ -35,7 +35,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
 
-#include <LiriGSettings/QGSettings>
+#include <QtGSettings/QGSettings>
 
 #include "hintssettings.h"
 
@@ -77,13 +77,13 @@ static QStringList xdgIconThemePaths()
     return paths;
 }
 
-HintsSettings::HintsSettings(Vibe::QGSettings *settings, QObject *parent)
+HintsSettings::HintsSettings(QtGSettings::QGSettings *settings, QObject *parent)
     : QObject(parent)
     , m_settings(settings)
 {
     // Change only the few hints involved, for some of these settings
     // we need to take actions to refresh applications
-    connect(m_settings, &Vibe::QGSettings::settingChanged, this,
+    connect(m_settings, &QtGSettings::QGSettings::settingChanged, this,
             [this](const QString &key) {
         if (key == QStringLiteral("cursorBlinkTime"))
             qtSettingsChanged();
