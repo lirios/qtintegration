@@ -1,5 +1,5 @@
 Qt Platform Theme plugin
-=====
+========================
 
 [![ZenHub.io](https://img.shields.io/badge/supercharged%20by-zenhub.io-blue.svg)](https://zenhub.io)
 
@@ -9,7 +9,7 @@ Qt Platform Theme plugin
 [![GitHub issues](https://img.shields.io/github/issues/lirios/platformtheme.svg)](https://github.com/lirios/platformtheme/issues)
 [![Maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/lirios/platformtheme/commits/develop)
 
-Fluid is a collection of cross-platform QtQuick components for building fluid and dynamic applications.
+Qt platform theme plugin for apps integration with Liri OS.
 
 ## Dependencies
 
@@ -17,7 +17,10 @@ Qt >= 5.8.0 with at least the following modules is required:
 
  * [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
  * [qtquickcontrols2](http://code.qt.io/cgit/qt/qtquickcontrols2.git)
- * [fluid](https://github.com/lirios/fluid.git)
+
+And the following modules:
+
+ * [qtgsettings](https://github.com/lirios/qtgsettings.git)
 
 ## Installation
 
@@ -25,7 +28,7 @@ From the root of the repository, run:
 
 ```sh
 mkdir build; cd build
-qmake ..
+qmake ../platformtheme.pro
 make
 make install # use sudo if necessary
 ```
@@ -34,6 +37,8 @@ On the `qmake` line, you can specify additional configuration parameters:
 
  * `LIRI_INSTALL_PREFIX=/path/to/install` (for example `/opt/liri` or `/usr`)
  * `CONFIG+=debug` if you want a debug build
+ * `CONFIG+=use_qt_paths` as an alternative to `LIRI_INSTALL_PREFIX=/path/to/install`
+   if you want to install where Qt is installed
 
 Use `make distclean` from inside your `build` directory to clean up.
 You need to do this before rerunning `qmake` with different options.
