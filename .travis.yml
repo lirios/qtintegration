@@ -12,6 +12,7 @@ arch:
     - qtgsettings=https://dl.bintray.com/liri/archlinux-develop/$arch/
   packages:
     - qt5-quickcontrols2
+    - qtgsettings-git
     - xorg-server-xvfb
     - clang
     #- clazy-git
