@@ -12,11 +12,4 @@ Project {
     references: [
         "src/src.qbs"
     ]
-
-    Product {
-        name: "qmake project files for liri-platform-theme"
-        files: [
-            "**/*.pr[io]"
-        ]
-    }
 }
