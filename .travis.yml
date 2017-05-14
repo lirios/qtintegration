@@ -11,18 +11,18 @@ arch:
     - fluid=https://dl.bintray.com/liri/archlinux-develop/$arch/
     - qtgsettings=https://dl.bintray.com/liri/archlinux-develop/$arch/
   packages:
+    - qbs
     - qt5-quickcontrols2
     - qtgsettings-git
     - xorg-server-xvfb
     - clang
     #- clazy-git
   script:
-    - export CLAZY_CHECKS="level1"
-    - mkdir build
-    - if [ "$CC" = "gcc" ]; then cd build && qmake -spec linux-g++ CONFIG+=use_qt_paths ../platformtheme.pro; fi
-    #- if [ "$CC" = "clang" ]; then cd build && qmake -spec linux-clang CONFIG+=use_qt_paths QMAKE_CXX="clazy" ../platformtheme.pro; fi
-    - if [ "$CC" = "clang" ]; then cd build && qmake -spec linux-clang CONFIG+=use_qt_paths ../platformtheme.pro; fi
-    - cd build && make -j$(nproc)
+    #- export CLAZY_CHECKS="level1"
+    - qbs-setup-toolchains --detect
+    - qbs-setup-qt /usr/bin/qmake-qt5 qt5
+    - qbs config profiles.qt5.baseProfile ${CC}
+    - eval `dbus-launch --sh-syntax` && xvfb-run -a -s "-screen 0 800x600x24" qbs -d qbs-build -j $(nproc) profile:qt5
 
 script:
   - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
