@@ -7,7 +7,7 @@ Project {
 
     minimumQbsVersion: "1.6"
 
-    qbsSearchPaths: base.concat(["qbs"])
+    qbsSearchPaths: "qbs-shared"
 
     references: [
         "src/src.qbs"
