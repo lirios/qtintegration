@@ -8,7 +8,7 @@ DynamicLibrary {
     Depends { name: "cpp" }
     Depends { name: "Qt"; submodules: ["core", "gui", "gui-private", "widgets", "quickcontrols2"] }
     Depends { name: "qbsbuildconfig" }
-    Depends { name: "libQtGSettings" }
+    Depends { name: "Qt5GSettings" }
 
     cpp.defines: [
         "QT_NO_CAST_FROM_ASCII",

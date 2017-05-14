@@ -28,7 +28,7 @@
 
 #include <QtGui/qpa/qplatformtheme_p.h>
 
-#include <QtGSettings/QGSettings>
+#include <Qt5GSettings/QGSettings>
 
 #include "liritheme.h"
 #include "resourcehelper.h"
