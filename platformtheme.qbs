@@ -9,7 +9,7 @@ Project {
 
     minimumQbsVersion: "1.6"
 
-    qbsSearchPaths: "qbs-shared"
+    qbsSearchPaths: ["qbs/shared"]
 
     references: [
         "src/src.qbs"
