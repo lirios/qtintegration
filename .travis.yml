@@ -25,7 +25,6 @@ arch:
   packages:
     - qbs
     - qt5-quickcontrols2
-    - qtgsettings-git
     - xorg-server-xvfb
     #- clazy-git
   script:
