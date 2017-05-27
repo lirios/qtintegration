@@ -1,31 +1,42 @@
 language: c
 
 compiler:
-  - gcc
   - clang
+  - gcc
 
 sudo: required
 
+services:
+  - docker
+
+env:
+  global:
+    # FTP_USER
+    - secure: "IFNh5Ax2tUyU4BnzIQ3fFJR2P3dcsP1NnbqN1eriekqjq0srK65+YdsSrrWYA6ueEEvhj3+R4b9rrmCfJ7DoNXbfIBvzi1uxcIo4BBhjpZYs/XQNB0v7W1u7qNmbInahHZPW0DPReBNZ2aqa6nizLyOE0BHXZlFun26cPz1mwYf5KdXVAKmUERYhKD4MDUQdEePzA/y8R92L3xmYjzNVq7BswYvn+BTGr13nVUS/Z7fFaaYboIKNqNGsJCjJIEXTbW8Am9gJkX4wWQrjBokFlf8YYYoFEOluE7/2P0Lg4JO25aRiNxh4JCU9RQmN8vKYmujMuOUUdkF+MeRVmL6t4fWzV+jCPxJ5oOFaJ6NbX+G7MMwe/V0/v02whTs+QDcV3AS/3zPVXH2IU8HPjZzrl7y5hPqNis+sEjxSCglBLnE6dbL1Kl7IN4eSu0YxaChIHe2KAp5v0h0+Ndwd9ciQTMfik4xigTL+kzQSTDHIKdv1OCdGeaZILB23BCGmIUgThd609ZKUcvqPyeFZjf4BvJQot7CrKANJrliFTVi+c/hB6KkMTlvXoNGhtC19yE7OFXE66ICo+9UGwKWkuE9Qx9bDn8WkH0eV9aZyfZSIWiyB/8GMjXRBcNCzyzSrv6bN5ajKaMC1V5rs8mI9zQyLBY3tMYbJWYKgeIPTkNH2Yj8="
+    # FTP_PASSWORD
+    - secure: "rmZEAqcB53jrg/KTFucw0k3rAa+TYKHNZHQuOUJQOfvk5mEb7dOxO5OLLlmYK0x0kXa1ACBSOdj/dtsSr1D8sFB1q5gcgWOLVnRQLyB+euTeCTlSzbOquz2BP4HhtkWRp68DG08SPkgV7W/OzqmwccOho2zuMIKpqdJjZuJph6pb3J1nswwkZhz2+unh4bmCb2kIR2Tku4QMruBd4dMp7Tnii0p+QDS8qyIcC+wqgCKuH279kJQYNyEqA6o4xTlu/gQ/+xp9O7d4inYDZq7KFwlCni7r25sJgELUzHKqnVmPLDUwcH0gkcUN7Xj2XT93g1WP0ozuQ+EXaIGAoObd6huIt154h6eNRRDmhvpgP1IKr/EJ210K67yegIVboAHrrHPtjmgvzcDfi2iOpAQLDa/s84EaCYIBAmX9btDZOGO+m/qy7OwY+yiJ8K3oX1Ci/heAyWzfEnSGFScvhUcho6jb761JeqJWV5pX+UjKm+hO7YQenpJo0nG43w0BGHrPDIsDvpfggezCmuUieH1C09DngDg90tmf7pYSUbiYLcUIkIyTFCTZQQ1I1LAmnJYajR6/Yl0ryaWHBmzVo4s2Fv73msNqVxeD9vqYAHaAlHUWBX1mGOtUyDEMUI6iMHiLNsokpzU1m/rzB2pqOo4SwEv3mIPQyhZlsJecyBi/nBo="
+    # FTP_URL
+    - secure: "2SNY3kzCrufiN/qAf3nfr+G0ty1f0CkhnQgLdh2o8vJJqW4irC2tyVLH+Flq/lM4FQRn+wxE1QYBgVmiclDOzQwA1eR7TUOgkH3X7Ocjog4ojV177QhyLfC2YbfkNePQU0jVFmtSwiG7Do1nCHPu7d25S3y2f371R6KlZ0IDghHwu18oncKecahQFo8tSI7CduIPYO+P23dcyk4ySduuzKF0+kMBiMROBj0U8xqP9cbBhEWYTSIPd977FW5flFdeWbaXzBWh9rDyg34X64ECHIecSK8XIouF8hRGeMx2aFIRONDEPyF1Sw7BKo6J0BjX9vIpgKPj5tHBba2Il96Z1WPehwGBBjf+f+Jq/wFMtUfUbc1C0ZOMCU/sNCh2XVWVFghJwMzE+4l3WxEY/XvfKgHGu1ZVMHjcCzeb6s5i7VJ/x/jqXo5nTy/NDUa3NHOZ4lk6rKXZbdop0Ss4qYyt4aNkB9cw0OPtuFpYyg6PhALk3o+fFAvABF03VOtqZakywBwAN1pJBEAiZJECVIoIS9AyFsGOQLXMfWHdLAl0sTjosf0vXWvMBH62bCUMZ0ZTseu2bokrMeGy7m9IYGz6uE+0TOnbqBhjkcpv6XaH0T2usDfFqCX/syAIf8RH2JtfiaUWYnTcIAUvruOC16KGCHJFyZ5+U7nKtDz7YaW6k4E="
+ 
 arch:
-  repos:
-    - fluid=https://dl.bintray.com/liri/archlinux-develop/$arch/
-    - qtgsettings=https://dl.bintray.com/liri/archlinux-develop/$arch/
+  artifacts:
+    - fluid-artifacts.tar.gz
+    - qtgsettings-artifacts.tar.gz
   packages:
     - qbs
     - qt5-quickcontrols2
     - qtgsettings-git
     - xorg-server-xvfb
-    - clang
     #- clazy-git
   script:
     #- export CLAZY_CHECKS="level1"
     - qbs-setup-toolchains --detect
     - qbs-setup-qt /usr/bin/qmake-qt5 qt5
     - qbs config profiles.qt5.baseProfile ${CC}
-    - eval `dbus-launch --sh-syntax` && xvfb-run -a -s "-screen 0 800x600x24" qbs -d qbs-build -j $(nproc) profile:qt5
+    - eval `dbus-launch --sh-syntax` && xvfb-run -a -s "-screen 0 800x600x24" qbs build -d build -j $(nproc) profile:qt5
 
 script:
-  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+  - "curl -s https://raw.githubusercontent.com/lirios/repotools/develop/travis/docker-travis.sh | bash"
 
 notifications:
   email: false
