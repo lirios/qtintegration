@@ -22,6 +22,7 @@ arch:
   artifacts:
     - fluid-artifacts.tar.gz
     - qtgsettings-artifacts.tar.gz
+    - qbs-shared-artifacts.tar.gz
   packages:
     - qbs
     - qt5-quickcontrols2
