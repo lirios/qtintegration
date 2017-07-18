@@ -20,6 +20,7 @@ Qt >= 5.8.0 with at least the following modules is required:
 
 And the following modules:
 
+ * [qbs-shared](https://github.com/lirios/qbs-shared.git)
  * [qtgsettings](https://github.com/lirios/qtgsettings.git)
 
 ## Installation
