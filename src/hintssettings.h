@@ -67,8 +67,11 @@ private:
     int toolBarIconSize(const QVariant &value);
 
     void collectHints();
+    void refreshPalette();
+
     void qtSettingsChanged();
     void toolButtonStyleChanged();
     void iconChanged();
     void styleChanged();
+    void paletteChanged();
 };

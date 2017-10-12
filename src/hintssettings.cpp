@@ -109,6 +109,8 @@ HintsSettings::HintsSettings(QObject *parent)
             iconChanged();
         else if (key == QStringLiteral("widgetsStyle"))
             styleChanged();
+        else if (key == QStringLiteral("colorScheme"))
+            paletteChanged();
     });
 }
 
@@ -124,15 +126,8 @@ void HintsSettings::refresh()
     // Load hints
     collectHints();
 
-    // Locate color scheme
-    QString scheme = m_settings->value(QStringLiteral("colorScheme")).toString();
-    QString schemeFileName = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                                    QStringLiteral("color-schemes/%1.colors").arg(scheme));
-
     // Palette
-    QPalette systemPalette = QPalette();
-    ResourceHelper::readPalette(schemeFileName, &systemPalette);
-    m_resources.palettes[QPlatformTheme::SystemPalette] = new QPalette(systemPalette);
+    refreshPalette();
 
     // Fonts
     QString fontFamily = m_settings->value(QStringLiteral("fontName")).toString();
@@ -225,6 +220,19 @@ void HintsSettings::collectHints()
             << 512 << 256 << 128 << 96 << 64 << 48
             << 32 << 24 << 22 << 16;
     m_hints.insert(QPlatformTheme::IconPixmapSizes, QVariant::fromValue(pixmapSizes));
+}
+
+void HintsSettings::refreshPalette()
+{
+    // Locate color scheme
+    QString scheme = m_settings->value(QStringLiteral("colorScheme")).toString();
+    QString schemeFileName = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                                    QStringLiteral("color-schemes/%1.colors").arg(scheme));
+
+    // Palette
+    QPalette systemPalette = QPalette();
+    ResourceHelper::readPalette(schemeFileName, &systemPalette);
+    m_resources.palettes[QPlatformTheme::SystemPalette] = new QPalette(systemPalette);
 }
 
 Qt::ToolButtonStyle HintsSettings::toolButtonStyle(const QVariant &value)
@@ -320,7 +328,21 @@ void HintsSettings::styleChanged()
     const QString style = m_hints[QPlatformTheme::StyleNames].toString();
     if (!style.isEmpty())
         QApplication::setStyle(style);
-    // TODO: load pal
+}
+
+void HintsSettings::paletteChanged()
+{
+    refreshPalette();
+
+    // Change palette
+    if (qobject_cast<QApplication *>(QCoreApplication::instance())) {
+        QPalette palette = *m_resources.palettes[QPlatformTheme::SystemPalette];
+        QApplication::setPalette(palette);
+        Q_EMIT qApp->paletteChanged(palette);
+    } else if (qobject_cast<QGuiApplication *>(QCoreApplication::instance())) {
+        QPalette palette = *m_resources.palettes[QPlatformTheme::SystemPalette];
+        QGuiApplication::setPalette(palette);
+    }
 }
 
 #include "moc_hintssettings.cpp"
