@@ -111,6 +111,8 @@ HintsSettings::HintsSettings(QObject *parent)
             styleChanged();
         else if (key == QStringLiteral("colorScheme"))
             paletteChanged();
+        else if (key.toLower().contains(QStringLiteral("font")))
+            fontChanged();
     });
 }
 
@@ -130,50 +132,7 @@ void HintsSettings::refresh()
     refreshPalette();
 
     // Fonts
-    QString fontFamily = m_settings->value(QStringLiteral("fontName")).toString();
-    int fontSize = m_settings->value(QStringLiteral("fontSize")).toInt();
-    QString monospaceFontFamily = m_settings->value(QStringLiteral("monospaceFontName")).toString();
-    int monospaceFontSize = m_settings->value(QStringLiteral("monospaceFontSize")).toInt();
-    QString smallFontFamily = m_settings->value(QStringLiteral("smallFontName")).toString();
-    int smallFontSize = m_settings->value(QStringLiteral("smallFontSize")).toInt();
-    QString miniFontFamily = m_settings->value(QStringLiteral("miniFontName")).toString();
-    int miniFontSize = m_settings->value(QStringLiteral("miniFontSize")).toInt();
-
-    // System font
-    if (QFont *systemFont = readFont(fontFamily, fontSize))
-        m_resources.fonts[QPlatformTheme::SystemFont] = systemFont;
-    else
-        m_resources.fonts[QPlatformTheme::SystemFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
-
-    // Monospace font
-    if (QFont *monospaceFont = readFont(monospaceFontFamily, monospaceFontSize))
-        m_resources.fonts[QPlatformTheme::FixedFont] = monospaceFont;
-    else
-        m_resources.fonts[QPlatformTheme::FixedFont] = new QFont(QLatin1String(defaultMonospaceFontName), defaultMonospaceFontSize);
-
-    // Small font
-    if (QFont *smallFont = readFont(smallFontFamily, smallFontSize))
-        m_resources.fonts[QPlatformTheme::SmallFont] = smallFont;
-    else
-        m_resources.fonts[QPlatformTheme::SmallFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
-
-    // Mini font
-    if (QFont *miniFont = readFont(miniFontFamily, miniFontSize))
-        m_resources.fonts[QPlatformTheme::MiniFont] = miniFont;
-    else
-        m_resources.fonts[QPlatformTheme::MiniFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
-
-    // Other fonts
-    QList<QPlatformTheme::Font> fonts;
-    fonts << QPlatformTheme::TitleBarFont << QPlatformTheme::MdiSubWindowTitleFont
-          << QPlatformTheme::DockWidgetTitleFont;
-    Q_FOREACH (QPlatformTheme::Font font, fonts) {
-        if (QFont *systemFont = readFont(fontFamily, fontSize))
-            m_resources.fonts[font] = systemFont;
-        else
-            m_resources.fonts[font] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
-        m_resources.fonts[font]->setBold(true);
-    }
+    refreshFonts();
 }
 
 void HintsSettings::collectHints()
@@ -233,6 +192,55 @@ void HintsSettings::refreshPalette()
     QPalette systemPalette = QPalette();
     ResourceHelper::readPalette(schemeFileName, &systemPalette);
     m_resources.palettes[QPlatformTheme::SystemPalette] = new QPalette(systemPalette);
+}
+
+void HintsSettings::refreshFonts()
+{
+    // Fonts
+    QString fontFamily = m_settings->value(QStringLiteral("fontName")).toString();
+    int fontSize = m_settings->value(QStringLiteral("fontSize")).toInt();
+    QString monospaceFontFamily = m_settings->value(QStringLiteral("monospaceFontName")).toString();
+    int monospaceFontSize = m_settings->value(QStringLiteral("monospaceFontSize")).toInt();
+    QString smallFontFamily = m_settings->value(QStringLiteral("smallFontName")).toString();
+    int smallFontSize = m_settings->value(QStringLiteral("smallFontSize")).toInt();
+    QString miniFontFamily = m_settings->value(QStringLiteral("miniFontName")).toString();
+    int miniFontSize = m_settings->value(QStringLiteral("miniFontSize")).toInt();
+
+    // System font
+    if (QFont *systemFont = readFont(fontFamily, fontSize))
+        m_resources.fonts[QPlatformTheme::SystemFont] = systemFont;
+    else
+        m_resources.fonts[QPlatformTheme::SystemFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+
+    // Monospace font
+    if (QFont *monospaceFont = readFont(monospaceFontFamily, monospaceFontSize))
+        m_resources.fonts[QPlatformTheme::FixedFont] = monospaceFont;
+    else
+        m_resources.fonts[QPlatformTheme::FixedFont] = new QFont(QLatin1String(defaultMonospaceFontName), defaultMonospaceFontSize);
+
+    // Small font
+    if (QFont *smallFont = readFont(smallFontFamily, smallFontSize))
+        m_resources.fonts[QPlatformTheme::SmallFont] = smallFont;
+    else
+        m_resources.fonts[QPlatformTheme::SmallFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+
+    // Mini font
+    if (QFont *miniFont = readFont(miniFontFamily, miniFontSize))
+        m_resources.fonts[QPlatformTheme::MiniFont] = miniFont;
+    else
+        m_resources.fonts[QPlatformTheme::MiniFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+
+    // Other fonts
+    QList<QPlatformTheme::Font> fonts;
+    fonts << QPlatformTheme::TitleBarFont << QPlatformTheme::MdiSubWindowTitleFont
+          << QPlatformTheme::DockWidgetTitleFont;
+    Q_FOREACH (QPlatformTheme::Font font, fonts) {
+        if (QFont *systemFont = readFont(fontFamily, fontSize))
+            m_resources.fonts[font] = systemFont;
+        else
+            m_resources.fonts[font] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+        m_resources.fonts[font]->setBold(true);
+    }
 }
 
 Qt::ToolButtonStyle HintsSettings::toolButtonStyle(const QVariant &value)
@@ -343,6 +351,17 @@ void HintsSettings::paletteChanged()
         QPalette palette = *m_resources.palettes[QPlatformTheme::SystemPalette];
         QGuiApplication::setPalette(palette);
     }
+}
+
+void HintsSettings::fontChanged()
+{
+    refreshFonts();
+
+    // Change system font
+    if (qobject_cast<QApplication *>(QCoreApplication::instance()))
+        QApplication::setFont(*m_resources.fonts[QPlatformTheme::SystemFont]);
+    else if (qobject_cast<QGuiApplication *>(QCoreApplication::instance()))
+        QGuiApplication::setFont(*m_resources.fonts[QPlatformTheme::SystemFont]);
 }
 
 #include "moc_hintssettings.cpp"

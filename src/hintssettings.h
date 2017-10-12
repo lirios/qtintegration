@@ -68,10 +68,12 @@ private:
 
     void collectHints();
     void refreshPalette();
+    void refreshFonts();
 
     void qtSettingsChanged();
     void toolButtonStyleChanged();
     void iconChanged();
     void styleChanged();
     void paletteChanged();
+    void fontChanged();
 };
