@@ -28,17 +28,16 @@
 #include <QtQuickControls2/QQuickStyle>
 
 #include "liritheme.h"
-#include "liritheme_p.h"
 #include "hintssettings.h"
 #include "logging_p.h"
 
 LiriTheme::LiriTheme()
-    : QPlatformTheme(new LiriThemePrivate())
+    : QPlatformTheme()
+    , m_hints(new HintsSettings())
 {
     qCDebug(gLcPlatformTheme, "Initializing Liri platform theme");
 
-    Q_D(LiriTheme);
-    d->refresh();
+    m_hints->refresh();
 
     // Set Material style by default
     if (QQuickStyle::name().isEmpty())
@@ -59,21 +58,17 @@ QPlatformDialogHelper *LiriTheme::createPlatformDialogHelper(DialogType type) co
 
 const QPalette *LiriTheme::palette(Palette type) const
 {
-    Q_D(const LiriTheme);
-    return d->resources.palettes[type];
+    return m_hints->palette(type);
 }
 
 const QFont *LiriTheme::font(Font type) const
 {
-    Q_D(const LiriTheme);
-    return d->resources.fonts[type];
+    return m_hints->font(type);
 }
 
 QVariant LiriTheme::themeHint(ThemeHint hint) const
 {
-    Q_D(const LiriTheme);
-
-    QVariant value = d->hints->themeHint(hint);
+    QVariant value = m_hints->themeHint(hint);
     if (value.isValid())
         return value;
     return QPlatformTheme::themeHint(hint);

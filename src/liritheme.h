@@ -30,13 +30,12 @@
 #include <QtCore/QVariant>
 #include <QtGui/qpa/qplatformtheme.h>
 
-class LiriThemePrivate;
+class HintsSettings;
 
 class Q_GUI_EXPORT LiriTheme : public QPlatformTheme
 {
-    Q_DECLARE_PRIVATE(LiriTheme)
 public:
-    LiriTheme();
+    explicit LiriTheme();
 
     bool usePlatformNativeDialog(DialogType type) const;
     QPlatformDialogHelper *createPlatformDialogHelper(DialogType type) const;
@@ -45,4 +44,7 @@ public:
     const QFont *font(Font type = SystemFont) const;
 
     QVariant themeHint(ThemeHint hint) const;
+
+private:
+    HintsSettings *m_hints;
 };
