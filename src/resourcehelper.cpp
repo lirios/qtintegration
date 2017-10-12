@@ -30,16 +30,16 @@
 
 ResourceHelper::ResourceHelper()
 {
-    std::fill(palettes, palettes + QPlatformTheme::NPalettes, static_cast<QPalette *>(0));
-    std::fill(fonts, fonts + QPlatformTheme::NFonts, static_cast<QFont *>(0));
+    std::fill(palettes, palettes + QPlatformTheme::NPalettes, static_cast<QPalette *>(nullptr));
+    std::fill(fonts, fonts + QPlatformTheme::NFonts, static_cast<QFont *>(nullptr));
 }
 
 void ResourceHelper::clear()
 {
     qDeleteAll(palettes, palettes + QPlatformTheme::NPalettes);
-    std::fill(palettes, palettes + QPlatformTheme::NPalettes, static_cast<QPalette *>(0));
+    std::fill(palettes, palettes + QPlatformTheme::NPalettes, static_cast<QPalette *>(nullptr));
     qDeleteAll(fonts, fonts + QPlatformTheme::NFonts);
-    std::fill(fonts, fonts + QPlatformTheme::NFonts, static_cast<QFont *>(0));
+    std::fill(fonts, fonts + QPlatformTheme::NFonts, static_cast<QFont *>(nullptr));
 }
 
 // Reads the color from the color scheme, and store it in the

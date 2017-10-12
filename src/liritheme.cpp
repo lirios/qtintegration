@@ -53,7 +53,7 @@ bool LiriTheme::usePlatformNativeDialog(DialogType type) const
 QPlatformDialogHelper *LiriTheme::createPlatformDialogHelper(DialogType type) const
 {
     Q_UNUSED(type);
-    return 0;
+    return nullptr;
 }
 
 const QPalette *LiriTheme::palette(Palette type) const

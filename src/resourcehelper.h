@@ -32,7 +32,7 @@
 class ResourceHelper
 {
 public:
-    ResourceHelper();
+    explicit ResourceHelper();
     ~ResourceHelper() { clear(); }
 
     void clear();

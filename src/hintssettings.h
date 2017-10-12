@@ -39,7 +39,7 @@ class HintsSettings : public QObject
 {
     Q_OBJECT
 public:
-    explicit HintsSettings(QObject *parent = 0);
+    explicit HintsSettings(QObject *parent = nullptr);
     ~HintsSettings();
 
     inline QVariant themeHint(QPlatformTheme::ThemeHint hint) const {
