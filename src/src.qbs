@@ -6,7 +6,7 @@ LiriDynamicLibrary {
     targetName: "liritheme"
 
     Depends { name: "lirideployment" }
-    Depends { name: "Qt"; submodules: ["core", "gui", "gui-private", "widgets", "quickcontrols2"] }
+    Depends { name: "Qt"; submodules: ["core", "gui", "gui-private", "widgets", "quickcontrols2"]; versionAtLeast: project.minimumQtVersion }
     Depends { name: "Qt5GSettings" }
 
     files: ["*.cpp", "*.h"]
