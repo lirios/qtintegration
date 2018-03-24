@@ -73,7 +73,7 @@ static QStringList xdgIconThemePaths()
     xdgPaths += xdgDataDirs.split(QLatin1Char(':'), QString::SkipEmptyParts);
 
     // Append the icons directory to all XDG data directories
-    Q_FOREACH (const QString &xdgPath, xdgPaths) {
+    for (const QString &xdgPath : qAsConst(xdgPaths)) {
         QDir iconDir = QDir(xdgPath).filePath(QLatin1String("icons"));
         paths.append(iconDir.absolutePath());
     }
@@ -234,7 +234,7 @@ void HintsSettings::refreshFonts()
     QList<QPlatformTheme::Font> fonts;
     fonts << QPlatformTheme::TitleBarFont << QPlatformTheme::MdiSubWindowTitleFont
           << QPlatformTheme::DockWidgetTitleFont;
-    Q_FOREACH (QPlatformTheme::Font font, fonts) {
+    for (QPlatformTheme::Font font : qAsConst(fonts)) {
         if (QFont *systemFont = readFont(fontFamily, fontSize))
             m_resources.fonts[font] = systemFont;
         else
@@ -287,7 +287,7 @@ void HintsSettings::toolButtonStyleChanged()
 
     // Refresh all tool button widgets
     QWidgetList widgets = QApplication::allWidgets();
-    Q_FOREACH (QWidget *widget, widgets) {
+    for (QWidget *widget : qAsConst(widgets)) {
         if (qobject_cast<QToolButton *>(widget)) {
             QEvent event(QEvent::StyleChange);
             QApplication::sendEvent(widget, &event);
@@ -313,7 +313,7 @@ void HintsSettings::iconChanged()
 
         // Refresh the main window and all tool bars
         QWidgetList widgets = QApplication::allWidgets();
-        Q_FOREACH (QWidget *widget, widgets) {
+        for (QWidget *widget : qAsConst(widgets)) {
             if (qobject_cast<QToolBar *>(widget) || qobject_cast<QMainWindow *>(widget)) {
                 QEvent event(QEvent::StyleChange);
                 QApplication::sendEvent(widget, &event);
