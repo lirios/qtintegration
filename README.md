@@ -9,7 +9,9 @@ Qt Platform Theme plugin
 [![GitHub issues](https://img.shields.io/github/issues/lirios/platformtheme.svg)](https://github.com/lirios/platformtheme/issues)
 [![Maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/lirios/platformtheme/commits/develop)
 
-Qt platform theme plugin for apps integration with Liri OS.
+Qt platform theme plugin for apps integration with Liri desktop.
+
+This plugin extends Qt hence you have to rebuild it every time Qt is updated.
 
 ## Dependencies
 
