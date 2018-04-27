@@ -5,9 +5,9 @@ Qt Platform Theme plugin
 
 [![License](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/lirios/platformtheme.svg)](https://github.com/lirios/platformtheme)
-[![Build Status](https://travis-ci.org/lirios/fluid.svg?branch=develop)](https://travis-ci.org/lirios/platformtheme)
+[![Build Status](https://travis-ci.org/lirios/fluid.svg?branch=master)](https://travis-ci.org/lirios/platformtheme)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/platformtheme.svg)](https://github.com/lirios/platformtheme/issues)
-[![Maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/lirios/platformtheme/commits/develop)
+[![Maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/lirios/platformtheme/commits/master)
 
 Qt platform theme plugin for apps integration with Liri desktop.
 
