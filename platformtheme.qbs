@@ -1,7 +1,7 @@
 import qbs 1.0
 
 Project {
-    name: "QPA Theme"
+    name: "PlatformTheme"
 
     readonly property string version: "1.0.0"
 
