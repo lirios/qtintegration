@@ -1,0 +1,32 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Liri Qt Integration
+Upstream-Contact: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Source: https://github.com/lirios/platformtheme
+
+Files: .github/*
+Copyright: none
+License: CC0-1.0
+
+Files: .git*
+Copyright: none
+License: CC0-1.0
+
+Files: .mailmap
+Copyright: none
+License: CC0-1.0
+
+Files: .tag
+Copyright: none
+License: CC0-1.0
+
+Files: *.md
+Copyright: none
+License: CC0-1.0
+
+Files: *.json
+Copyright: none
+License: CC0-1.0
+
+Files: *CMakeLists.txt
+Copyright: none
+License: CC0-1.0
