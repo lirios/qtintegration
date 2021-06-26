@@ -3,7 +3,7 @@ Upstream-Name: Liri Qt Integration
 Upstream-Contact: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
 Source: https://github.com/lirios/platformtheme
 
-Files: .github/*
+Files: .github/workflows/*.yml
 Copyright: none
 License: CC0-1.0
 
