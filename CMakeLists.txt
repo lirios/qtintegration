@@ -29,4 +29,4 @@ find_package(Qt5 "${QT_MIN_VERSION}"
 )
 
 ## Add subdirectories:
-add_subdirectory(src)
+add_subdirectory(src/plugins/platformtheme)
