@@ -12,11 +12,22 @@ if(NOT LIRI_LOCAL_ECM)
     list(APPEND CMAKE_MODULE_PATH "${LCS_MODULE_PATH}")
 endif()
 
+## Add some paths to check for CMake modules:
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_CURRENT_SOURCE_DIR}/cmake/3rdparty")
+
 ## Set minimum versions required:
 set(QT_MIN_VERSION "5.8.0")
 
 ## Liri specific setup common for all modules:
 include(LiriSetup)
+
+## Find Wayland:
+find_package(Wayland 1.15 COMPONENTS Client)
+set_package_properties(Wayland PROPERTIES TYPE REQUIRED)
+
+## Find wayland-protocols:
+find_package(WaylandProtocols 1.15)
+set_package_properties(WaylandProtocols PROPERTIES TYPE REQUIRED)
 
 ## Find Qt 5:
 find_package(Qt5 "${QT_MIN_VERSION}"
@@ -26,7 +37,9 @@ find_package(Qt5 "${QT_MIN_VERSION}"
         Gui
         Widgets
         QuickControls2
+        WaylandClient
 )
 
 ## Add subdirectories:
 add_subdirectory(src/plugins/platformtheme)
+add_subdirectory(src/plugins/shellintegration/layershell)

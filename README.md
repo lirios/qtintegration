@@ -16,12 +16,16 @@ Qt >= 5.8.0 with at least the following modules is required:
 
  * [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
  * [qtquickcontrols2](http://code.qt.io/cgit/qt/qtquickcontrols2.git)
+ * [qtwayland](http://code.qt.io/cgit/qt/qtwayland.git)
 
 And the following modules:
 
  * [cmake](https://gitlab.kitware.com/cmake/cmake) >= 3.10.0
  * [cmake-shared](https://github.com/lirios/cmake-shared.git) >= 1.0.0
  * [qtgsettings](https://github.com/lirios/qtgsettings.git) >= 1.1.0
+ * [liri-wayland](https://github.com/lirios/wayland)
+ * [wayland-protocols](https://gitlab.freedesktop.org/wayland/wayland-protocols) >= 1.15
+ * [xkbcommon](https://github.com/xkbcommon/libxkbcommon)
 
 ## Installation
 
