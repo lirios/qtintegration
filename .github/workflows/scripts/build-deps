@@ -18,7 +18,7 @@ curdir=$(dirname `readlink -f $0`)
 mkdir -p /tmp/build-deps
 pushd /tmp/build-deps
 git clone git://github.com/liri-infra/ci-scripts
-for repo in cmake-shared qtgsettings; do
+for repo in cmake-shared qtgsettings wayland; do
     ./ci-scripts/build-liri $repo $branch
 done
 popd
