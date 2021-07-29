@@ -2,8 +2,8 @@ find_package(Xkbcommon REQUIRED)
 find_package(Qt5XkbCommonSupport REQUIRED PRIVATE)
 find_package(QtWaylandScanner REQUIRED)
 
-if(NOT TARGET Liri::WaylandClientLayerShell)
-    find_package(Liri1WaylandClientLayerShell REQUIRED)
+if(NOT TARGET Liri::WaylandClient)
+    find_package(Liri1WaylandClient REQUIRED)
 endif()
 
 ecm_add_qtwayland_client_protocol(SOURCES
@@ -48,5 +48,5 @@ liri_add_plugin(liri-layer-shell
         Qt5::XkbCommonSupportPrivate
         Wayland::Client
         PkgConfig::Xkbcommon
-        Liri::WaylandClientLayerShell
+        Liri::WaylandClient
 )

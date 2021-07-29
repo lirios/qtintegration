@@ -9,7 +9,7 @@
 #include <QtWaylandClient/private/qwaylandshellsurface_p.h>
 #include <QtWaylandClient/private/qwaylandwindow_p.h>
 
-#include <LiriWaylandClientLayerShell/LayerSurface>
+#include <LiriWaylandClient/WlrLayerSurfaceV1>
 
 #include "qwaylandlayershell_p.h"
 
@@ -31,11 +31,11 @@ public:
     void applyConfigure() override;
 
 public Q_SLOTS:
-    void setLayer(LayerSurface::Layer layer);
-    void setAnchors(LayerSurface::Anchors anchors);
+    void setLayer(WlrLayerSurfaceV1::Layer layer);
+    void setAnchors(WlrLayerSurfaceV1::Anchors anchors);
     void setExclusiveZone(qint32 exclusiveZone);
     void setMargins(const QMargins &margins);
-    void setKeyboardInteractivity(LayerSurface::KeyboardInteractivity keyboardInteractivity);
+    void setKeyboardInteractivity(WlrLayerSurfaceV1::KeyboardInteractivity keyboardInteractivity);
 
 protected:
     void zwlr_layer_surface_v1_configure(uint32_t serial, uint32_t width, uint32_t height) override;
