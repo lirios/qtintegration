@@ -147,7 +147,10 @@ void QWaylandLayerSurface::setKeyboardInteractivity(WlrLayerSurfaceV1::KeyboardI
 void QWaylandLayerSurface::zwlr_layer_surface_v1_configure(uint32_t serial, uint32_t width, uint32_t height)
 {
     ack_configure(serial);
-    m_pendingSize = QSize(width, height);
+    if (width > 0 && height > 0)
+        m_pendingSize = QSize(width, height);
+    else
+        m_pendingSize = window()->surfaceSize();
 
     if (m_configured) {
         // All configures after the initial one are for resizing the window,
