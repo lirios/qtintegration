@@ -21,6 +21,14 @@ set(QT_MIN_VERSION "5.15.0")
 ## Liri specific setup common for all modules:
 include(LiriSetup)
 
+## Features:
+option(LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION "Material decoration" ON)
+add_feature_info("QtIntegration::MaterialDecoration" LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION "Build Material decoration")
+option(LIRI_QTINTEGRATION_ENABLE_PLATFORMTHEME "Qt platform theme" ON)
+add_feature_info("QtIntegration::PlatformTheme" LIRI_QTINTEGRATION_ENABLE_PLATFORMTHEME "Build Qt platform theme")
+option(LIRI_QTINTEGRATION_ENABLE_LAYER_SHELL_INTEGRATION "Layer-shell QtWayland shell integration" ON)
+add_feature_info("QtIntegration::LayerShell" LIRI_QTINTEGRATION_ENABLE_LAYER_SHELL_INTEGRATION "Build layer-shell QtWayland shell integration")
+
 ## Find Wayland:
 find_package(Wayland 1.15 COMPONENTS Client)
 set_package_properties(Wayland PROPERTIES TYPE REQUIRED)
@@ -41,6 +49,12 @@ find_package(Qt5 "${QT_MIN_VERSION}"
 )
 
 ## Add subdirectories:
-add_subdirectory(src/plugins/decorations/material)
-add_subdirectory(src/plugins/platformtheme)
-add_subdirectory(src/plugins/shellintegration/layershell)
+if(LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION)
+    add_subdirectory(src/plugins/decorations/material)
+endif()
+if(LIRI_QTINTEGRATION_ENABLE_PLATFORMTHEME)
+    add_subdirectory(src/plugins/platformtheme)
+endif()
+if(LIRI_QTINTEGRATION_ENABLE_LAYER_SHELL_INTEGRATION)
+    add_subdirectory(src/plugins/shellintegration/layershell)
+endif()
