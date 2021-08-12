@@ -16,7 +16,7 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_CURRENT_SOURCE_DIR}/cmake/3rdparty/extra-cmake-modules")
 
 ## Set minimum versions required:
-set(QT_MIN_VERSION "5.8.0")
+set(QT_MIN_VERSION "5.15.0")
 
 ## Liri specific setup common for all modules:
 include(LiriSetup)
@@ -39,11 +39,6 @@ find_package(Qt5 "${QT_MIN_VERSION}"
         QuickControls2
         WaylandClient
 )
-if(${Qt5_VERSION} VERSION_GREATER "5.15.1")
-    find_package(Qt5 "${QT_MIN_VERSION}"
-        CONFIG REQUIRED
-        COMPONENTS XkbCommonSupport)
-endif()
 
 ## Add subdirectories:
 add_subdirectory(src/plugins/decorations/material)

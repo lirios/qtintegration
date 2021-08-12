@@ -45,6 +45,7 @@ liri_add_plugin(liri-layer-shell
         Qt5::Gui
         Qt5::WaylandClient
         Qt5::WaylandClientPrivate
+        Qt5::XkbCommonSupport
         Qt5::XkbCommonSupportPrivate
         Wayland::Client
         PkgConfig::Xkbcommon

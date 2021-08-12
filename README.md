@@ -27,7 +27,7 @@ not use any client-side decoration.
 
 ## Dependencies
 
-Qt >= 5.8.0 with at least the following modules is required:
+Qt >= 5.15.0 with at least the following modules is required:
 
  * [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
  * [qtquickcontrols2](http://code.qt.io/cgit/qt/qtquickcontrols2.git)
