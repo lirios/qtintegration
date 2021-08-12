@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10.0)
 
-project("PlatformTheme"
+project("PlatformIntegration"
     VERSION "1.0.0"
-    DESCRIPTION "Qt platform theme plugin"
+    DESCRIPTION "Integration of Qt applications with the Liri desktop environment"
     LANGUAGES CXX C
 )
 
@@ -13,7 +13,7 @@ if(NOT LIRI_LOCAL_ECM)
 endif()
 
 ## Add some paths to check for CMake modules:
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_CURRENT_SOURCE_DIR}/cmake/3rdparty")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_CURRENT_SOURCE_DIR}/cmake/3rdparty/extra-cmake-modules")
 
 ## Set minimum versions required:
 set(QT_MIN_VERSION "5.8.0")
@@ -39,7 +39,13 @@ find_package(Qt5 "${QT_MIN_VERSION}"
         QuickControls2
         WaylandClient
 )
+if(${Qt5_VERSION} VERSION_GREATER "5.15.1")
+    find_package(Qt5 "${QT_MIN_VERSION}"
+        CONFIG REQUIRED
+        COMPONENTS XkbCommonSupport)
+endif()
 
 ## Add subdirectories:
+add_subdirectory(src/plugins/decorations/material)
 add_subdirectory(src/plugins/platformtheme)
 add_subdirectory(src/plugins/shellintegration/layershell)

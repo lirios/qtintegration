@@ -1,5 +1,5 @@
-Qt Platform Theme plugin
-=========================
+Qt applications integration
+===========================
 
 # Core Developers
 

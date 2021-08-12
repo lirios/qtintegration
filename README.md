@@ -1,14 +1,29 @@
-Qt Platform Theme plugin
-========================
+Qt applications integration
+===========================
 
 [![License](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/lirios/platformtheme.svg)](https://github.com/lirios/platformtheme)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/platformtheme.svg)](https://github.com/lirios/platformtheme/issues)
 [![CI](https://github.com/lirios/platformtheme/workflows/CI/badge.svg?branch=develop)](https://github.com/lirios/platformtheme/actions?query=workflow%3ACI)
 
-Qt platform theme plugin for apps integration with Liri desktop.
+Qt applications integration with the Liri desktop environment.
 
-This plugin extends Qt hence you have to rebuild it every time Qt is updated.
+The plugins included in this repository use Qt private APIs,
+hence you have to rebuild it every time Qt is updated.
+
+Contains:
+
+  * Platform theme plugin.
+  * Client-side decoration for Qt applications on Wayland.
+  * Wayland shell integration for layer-shell and xdg-shell.
+
+**Material Decoration**
+
+Set `QT_WAYLAND_DECORATION=material` in the environment to see Qt applications
+using Material Design window decorations in a Wayland session.
+
+Make sure `QT_WAYLAND_DISABLE_WINDOWDECORATION` is not set, otherwise Qt will
+not use any client-side decoration.
 
 ## Dependencies
 
@@ -42,4 +57,5 @@ Default is `/usr/local`.
 
 ## Licensing
 
-Licensed under the terms of the GNU General Public License version 3.0.
+Licensed under the terms of the GNU Lesser General Public License version 3 or,
+at your option, any later version.
