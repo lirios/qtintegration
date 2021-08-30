@@ -21,6 +21,7 @@ QWaylandLayerSurface::QWaylandLayerSurface(QWaylandLayerShell *shell, QWaylandWi
         qCWarning(lcQpaWayland) << "Cannot find LayerSurface interface on window" << window->window();
         return;
     }
+    qCDebug(lcQpaWayland) << "Creating layer surface with namespace" << interface->role();
 
     // Initialize layer surface
     auto *wlSurface = window->waylandSurface()->object();
