@@ -29,10 +29,12 @@ public:
     bool isExposed() const override;
 
     void applyConfigure() override;
+    void setWindowGeometry(const QRect &rect) override;
 
 public Q_SLOTS:
     void setLayer(WlrLayerSurfaceV1::Layer layer);
     void setAnchors(WlrLayerSurfaceV1::Anchors anchors);
+    void setSize(const QSize &surfaceSize);
     void setExclusiveZone(qint32 exclusiveZone);
     void setMargins(const QMargins &margins);
     void setKeyboardInteractivity(WlrLayerSurfaceV1::KeyboardInteractivity keyboardInteractivity);
@@ -43,6 +45,7 @@ protected:
 
 private:
     QWaylandLayerShell *m_shell = nullptr;
+    WlrLayerSurfaceV1::Anchors m_anchors;
     bool m_configured = false;
     QSize m_pendingSize;
 };

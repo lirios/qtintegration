@@ -67,6 +67,11 @@ void QWaylandLayerSurface::applyConfigure()
     window()->resizeFromApplyConfigure(m_pendingSize);
 }
 
+void QWaylandLayerSurface::setWindowGeometry(const QRect &rect)
+{
+    setSize(rect.size());
+}
+
 void QWaylandLayerSurface::setLayer(WlrLayerSurfaceV1::Layer layer)
 {
     // This slot shouldn't even be called if the compositor supports an older version
@@ -82,18 +87,23 @@ void QWaylandLayerSurface::setLayer(WlrLayerSurfaceV1::Layer layer)
 
 void QWaylandLayerSurface::setAnchors(WlrLayerSurfaceV1::Anchors anchors)
 {
+    m_anchors = anchors;
     set_anchor(static_cast<uint32_t>(anchors));
+    setSize(window()->surfaceSize());
+}
 
+void QWaylandLayerSurface::setSize(const QSize &surfaceSize)
+{
     // Start with the surface size
-    auto size = window()->surfaceSize();
+    QSize size = surfaceSize;
 
     // Let the compositor set the width based on the output available width
-    if (anchors.testFlag(WlrLayerSurfaceV1::LeftAnchor) &&
-            anchors.testFlag(WlrLayerSurfaceV1::RightAnchor))
+    if (m_anchors.testFlag(WlrLayerSurfaceV1::LeftAnchor) &&
+            m_anchors.testFlag(WlrLayerSurfaceV1::RightAnchor))
         size.setWidth(0);
     // Let the compositor set the width based on the output available width
-    if (anchors.testFlag(WlrLayerSurfaceV1::TopAnchor) &&
-            anchors.testFlag(WlrLayerSurfaceV1::BottomAnchor))
+    if (m_anchors.testFlag(WlrLayerSurfaceV1::TopAnchor) &&
+            m_anchors.testFlag(WlrLayerSurfaceV1::BottomAnchor))
         size.setHeight(0);
 
     // Set size only if it's valid
@@ -148,10 +158,10 @@ void QWaylandLayerSurface::setKeyboardInteractivity(WlrLayerSurfaceV1::KeyboardI
 void QWaylandLayerSurface::zwlr_layer_surface_v1_configure(uint32_t serial, uint32_t width, uint32_t height)
 {
     ack_configure(serial);
-    if (width > 0 && height > 0)
-        m_pendingSize = QSize(width, height);
-    else
-        m_pendingSize = window()->surfaceSize();
+
+    auto surfaceSize = window()->surfaceSize();
+    m_pendingSize.setWidth(width > 0 ? width : surfaceSize.width());
+    m_pendingSize.setHeight(height > 0 ? height : surfaceSize.height());
 
     if (m_configured) {
         // All configures after the initial one are for resizing the window,
