@@ -21,3 +21,5 @@ liri_add_plugin(liritheme
         Qt5::QuickControls2
         Liri::Qt5GSettings
 )
+
+liri_finalize_plugin(liritheme)

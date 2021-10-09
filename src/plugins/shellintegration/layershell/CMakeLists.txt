@@ -51,3 +51,5 @@ liri_add_plugin(liri-layer-shell
         PkgConfig::Xkbcommon
         Liri::WaylandClient
 )
+
+liri_finalize_plugin(liri-layer-shell)

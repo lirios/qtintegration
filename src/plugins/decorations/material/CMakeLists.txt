@@ -17,3 +17,5 @@ liri_add_plugin(materialdecoration
         Wayland::Client
         PkgConfig::Xkbcommon
 )
+
+liri_finalize_plugin(materialdecoration)
