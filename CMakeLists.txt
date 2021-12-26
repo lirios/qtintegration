@@ -21,6 +21,12 @@ set(QT_MIN_VERSION "5.15.0")
 ## Liri specific setup common for all modules:
 include(LiriSetup)
 
+## Only build on the appropriate platforms.
+if(NOT UNIX OR ANDROID)
+    message(NOTICE "Skipping the build as the condition \"UNIX OR ANDROID\" is not met.")
+    return()
+endif()
+
 ## Features:
 option(LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION "Material decoration" ON)
 add_feature_info("QtIntegration::MaterialDecoration" LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION "Build Material decoration")
