@@ -38,9 +38,13 @@ And the following modules:
  * [cmake](https://gitlab.kitware.com/cmake/cmake) >= 3.10.0
  * [cmake-shared](https://github.com/lirios/cmake-shared.git) >= 1.0.0
  * [qtgsettings](https://github.com/lirios/qtgsettings.git) >= 1.1.0
- * [liri-wayland](https://github.com/lirios/wayland)
+ * [aurora-client](https://github.com/lirios/aurora-client)
  * [wayland-protocols](https://gitlab.freedesktop.org/wayland/wayland-protocols) >= 1.15
  * [xkbcommon](https://github.com/xkbcommon/libxkbcommon)
+
+Build-time only dependencies:
+
+ * [aurora](https://github.com/lirios/aurora) for aurora-wayland-scanner
 
 ## Installation
 
