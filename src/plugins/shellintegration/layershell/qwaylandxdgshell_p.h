@@ -7,11 +7,12 @@
 
 #include <QtWaylandClient/qtwaylandclientglobal.h>
 
-#include "qwayland-xdg-shell.h"
+#include "aurora-client-xdg-shell.h"
 
 namespace QtWaylandClient {
 
-class Q_WAYLAND_CLIENT_EXPORT QWaylandXdgShell : public QtWayland::xdg_wm_base
+class Q_WAYLAND_CLIENT_EXPORT QWaylandXdgShell
+        : public Aurora::Client::PrivateClient::xdg_wm_base
 {
 public:
     QWaylandXdgShell(struct ::wl_registry *registry, uint32_t id, uint32_t version);

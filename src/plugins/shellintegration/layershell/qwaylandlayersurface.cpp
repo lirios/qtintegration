@@ -11,12 +11,12 @@ namespace QtWaylandClient {
 
 QWaylandLayerSurface::QWaylandLayerSurface(QWaylandLayerShell *shell, QWaylandWindow *window)
     : QWaylandShellSurface(window)
-    , QtWayland::zwlr_layer_surface_v1()
+    , Aurora::Client::PrivateClient::zwlr_layer_surface_v1()
     , m_shell(shell)
 {
     // Let's find the interface object associated with this window,
     // or bail out if we cannot find it
-    auto *interface = WlrLayerSurfaceV1::get(window->window());
+    auto *interface = Aurora::Client::WlrLayerSurfaceV1::get(window->window());
     if (!interface) {
         qCWarning(lcQpaWayland) << "Cannot find LayerSurface interface on window" << window->window();
         return;
@@ -40,15 +40,15 @@ QWaylandLayerSurface::QWaylandLayerSurface(QWaylandLayerShell *shell, QWaylandWi
     setKeyboardInteractivity(interface->keyboardInteractivity());
 
     // React to changes to the interface object
-    connect(interface, &WlrLayerSurfaceV1::layerChanged,
+    connect(interface, &Aurora::Client::WlrLayerSurfaceV1::layerChanged,
             this, &QWaylandLayerSurface::setLayer);
-    connect(interface, &WlrLayerSurfaceV1::anchorsChanged,
+    connect(interface, &Aurora::Client::WlrLayerSurfaceV1::anchorsChanged,
             this, &QWaylandLayerSurface::setAnchors);
-    connect(interface, &WlrLayerSurfaceV1::exclusiveZoneChanged,
+    connect(interface, &Aurora::Client::WlrLayerSurfaceV1::exclusiveZoneChanged,
             this, &QWaylandLayerSurface::setExclusiveZone);
-    connect(interface, &WlrLayerSurfaceV1::marginsChanged,
+    connect(interface, &Aurora::Client::WlrLayerSurfaceV1::marginsChanged,
             this, &QWaylandLayerSurface::setMargins);
-    connect(interface, &WlrLayerSurfaceV1::keyboardInteractivityChanged,
+    connect(interface, &Aurora::Client::WlrLayerSurfaceV1::keyboardInteractivityChanged,
             this, &QWaylandLayerSurface::setKeyboardInteractivity);
 }
 
@@ -72,7 +72,7 @@ void QWaylandLayerSurface::setWindowGeometry(const QRect &rect)
     setSize(rect.size());
 }
 
-void QWaylandLayerSurface::setLayer(WlrLayerSurfaceV1::Layer layer)
+void QWaylandLayerSurface::setLayer(Aurora::Client::WlrLayerSurfaceV1::Layer layer)
 {
     // This slot shouldn't even be called if the compositor supports an older version
     // because in this case the interface won't allow changing the layer after initialization,
@@ -85,7 +85,7 @@ void QWaylandLayerSurface::setLayer(WlrLayerSurfaceV1::Layer layer)
                   ZWLR_LAYER_SURFACE_V1_SET_LAYER_SINCE_VERSION, version);
 }
 
-void QWaylandLayerSurface::setAnchors(WlrLayerSurfaceV1::Anchors anchors)
+void QWaylandLayerSurface::setAnchors(Aurora::Client::WlrLayerSurfaceV1::Anchors anchors)
 {
     m_anchors = anchors;
     set_anchor(static_cast<uint32_t>(anchors));
@@ -98,12 +98,12 @@ void QWaylandLayerSurface::setSize(const QSize &surfaceSize)
     QSize size = surfaceSize;
 
     // Let the compositor set the width based on the output available width
-    if (m_anchors.testFlag(WlrLayerSurfaceV1::LeftAnchor) &&
-            m_anchors.testFlag(WlrLayerSurfaceV1::RightAnchor))
+    if (m_anchors.testFlag(Aurora::Client::WlrLayerSurfaceV1::LeftAnchor) &&
+            m_anchors.testFlag(Aurora::Client::WlrLayerSurfaceV1::RightAnchor))
         size.setWidth(0);
     // Let the compositor set the width based on the output available width
-    if (m_anchors.testFlag(WlrLayerSurfaceV1::TopAnchor) &&
-            m_anchors.testFlag(WlrLayerSurfaceV1::BottomAnchor))
+    if (m_anchors.testFlag(Aurora::Client::WlrLayerSurfaceV1::TopAnchor) &&
+            m_anchors.testFlag(Aurora::Client::WlrLayerSurfaceV1::BottomAnchor))
         size.setHeight(0);
 
     // Set size only if it's valid
@@ -137,10 +137,10 @@ void QWaylandLayerSurface::setMargins(const QMargins &margins)
         window()->commit();
 }
 
-void QWaylandLayerSurface::setKeyboardInteractivity(WlrLayerSurfaceV1::KeyboardInteractivity keyboardInteractivity)
+void QWaylandLayerSurface::setKeyboardInteractivity(Aurora::Client::WlrLayerSurfaceV1::KeyboardInteractivity keyboardInteractivity)
 {
     auto version = zwlr_layer_surface_v1_get_version(object());
-    if (keyboardInteractivity == WlrLayerSurfaceV1::OnDemandKeyboardInteractivity &&
+    if (keyboardInteractivity == Aurora::Client::WlrLayerSurfaceV1::OnDemandKeyboardInteractivity &&
             version < ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_ON_DEMAND_SINCE_VERSION) {
         qCWarning(lcQpaWayland, "Ignoring on_demand keyboard interactivity: need at least version %d instead of %d",
                   ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_ON_DEMAND_SINCE_VERSION, version);

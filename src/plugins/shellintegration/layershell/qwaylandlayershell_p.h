@@ -7,11 +7,12 @@
 
 #include <QtWaylandClient/qtwaylandclientglobal.h>
 
-#include "qwayland-wlr-layer-shell-unstable-v1.h"
+#include "aurora-client-wlr-layer-shell-unstable-v1.h"
 
 namespace QtWaylandClient {
 
-class Q_WAYLAND_CLIENT_EXPORT QWaylandLayerShell : public QtWayland::zwlr_layer_shell_v1
+class Q_WAYLAND_CLIENT_EXPORT QWaylandLayerShell
+        : public Aurora::Client::PrivateClient::zwlr_layer_shell_v1
 {
 public:
     QWaylandLayerShell(struct ::wl_registry *registry, uint32_t id, uint32_t version);

@@ -7,7 +7,7 @@
 namespace QtWaylandClient {
 
 QWaylandXdgShell::QWaylandXdgShell(struct ::wl_registry *registry, uint32_t id, uint32_t version)
-    : QtWayland::xdg_wm_base(registry, id, version)
+    : Aurora::Client::PrivateClient::xdg_wm_base(registry, id, version)
 {
 }
 

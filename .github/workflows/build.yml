@@ -21,4 +21,4 @@ jobs:
     uses: lirios/.github/.github/workflows/build-linux-qt5.yml@master
     with:
       dependencies: "AppStream libAppStreamQt-devel fwupd-devel libostree-devel flatpak-devel"
-      build_dependencies: "cmake-shared qtgsettings wayland"
+      build_dependencies: "cmake-shared qtgsettings aurora-scanner aurora-client"

@@ -14,7 +14,7 @@ namespace QtWaylandClient {
 QWaylandXdgSurface::QWaylandXdgSurface(QWaylandXdgShell *xdgShell,
                                        QWaylandWindow *window)
     : QWaylandShellSurface(window)
-    , QtWayland::xdg_surface()
+    , Aurora::Client::PrivateClient::xdg_surface()
     , m_xdgShell(xdgShell)
     , m_window(window)
 {
@@ -23,11 +23,11 @@ QWaylandXdgSurface::QWaylandXdgSurface(QWaylandXdgShell *xdgShell,
     init(xdgShell->get_xdg_surface(wlSurface));
 
     // Create xdg popup positioner
-    auto *xdgPositioner = new QtWayland::xdg_positioner(xdgShell->create_positioner());
+    auto *xdgPositioner = new Aurora::Client::PrivateClient::xdg_positioner(xdgShell->create_positioner());
     auto pos = window->geometry().topLeft() - window->transientParent()->geometry().topLeft();
     xdgPositioner->set_anchor_rect(pos.x(), pos.y(), 1, 1);
-    xdgPositioner->set_anchor(QtWayland::xdg_positioner::anchor_top_left);
-    xdgPositioner->set_gravity(QtWayland::xdg_positioner::gravity_bottom_right);
+    xdgPositioner->set_anchor(Aurora::Client::PrivateClient::xdg_positioner::anchor_top_left);
+    xdgPositioner->set_gravity(Aurora::Client::PrivateClient::xdg_positioner::gravity_bottom_right);
     xdgPositioner->set_size(window->geometry().width(), window->geometry().height());
 
     // Create xdg popup
@@ -91,7 +91,7 @@ void QWaylandXdgSurface::xdg_surface_configure(uint32_t serial)
 }
 
 QWaylandXdgSurface::Popup::Popup(QWaylandXdgSurface *xdgSurface, struct ::xdg_popup *object)
-    : QtWayland::xdg_popup(object)
+    : Aurora::Client::PrivateClient::xdg_popup(object)
     , m_xdgSurface(xdgSurface)
 {
     auto *window = xdgSurface->m_window;

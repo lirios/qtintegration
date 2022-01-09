@@ -9,17 +9,15 @@
 #include <QtWaylandClient/private/qwaylandshellsurface_p.h>
 #include <QtWaylandClient/private/qwaylandwindow_p.h>
 
-#include <LiriWaylandClient/WlrLayerSurfaceV1>
+#include <LiriAuroraClient/WlrLayerSurfaceV1>
 
 #include "qwaylandlayershell_p.h"
 
 namespace QtWaylandClient {
 
-using namespace Liri::WaylandClient;
-
 class Q_WAYLAND_CLIENT_EXPORT QWaylandLayerSurface
         : public QWaylandShellSurface
-        , public QtWayland::zwlr_layer_surface_v1
+        , public Aurora::Client::PrivateClient::zwlr_layer_surface_v1
 {
     Q_OBJECT
 public:
@@ -32,12 +30,12 @@ public:
     void setWindowGeometry(const QRect &rect) override;
 
 public Q_SLOTS:
-    void setLayer(WlrLayerSurfaceV1::Layer layer);
-    void setAnchors(WlrLayerSurfaceV1::Anchors anchors);
+    void setLayer(Aurora::Client::WlrLayerSurfaceV1::Layer layer);
+    void setAnchors(Aurora::Client::WlrLayerSurfaceV1::Anchors anchors);
     void setSize(const QSize &surfaceSize);
     void setExclusiveZone(qint32 exclusiveZone);
     void setMargins(const QMargins &margins);
-    void setKeyboardInteractivity(WlrLayerSurfaceV1::KeyboardInteractivity keyboardInteractivity);
+    void setKeyboardInteractivity(Aurora::Client::WlrLayerSurfaceV1::KeyboardInteractivity keyboardInteractivity);
 
 protected:
     void zwlr_layer_surface_v1_configure(uint32_t serial, uint32_t width, uint32_t height) override;
@@ -45,7 +43,7 @@ protected:
 
 private:
     QWaylandLayerShell *m_shell = nullptr;
-    WlrLayerSurfaceV1::Anchors m_anchors;
+    Aurora::Client::WlrLayerSurfaceV1::Anchors m_anchors;
     bool m_configured = false;
     QSize m_pendingSize;
 };

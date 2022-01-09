@@ -15,7 +15,7 @@ namespace QtWaylandClient {
 
 class Q_WAYLAND_CLIENT_EXPORT QWaylandXdgSurface
         : public QWaylandShellSurface
-        , public QtWayland::xdg_surface
+        , public Aurora::Client::PrivateClient::xdg_surface
 {
     Q_OBJECT
 public:
@@ -31,7 +31,7 @@ protected:
     void xdg_surface_configure(uint32_t serial) override;
 
 private:
-    class Popup : public QtWayland::xdg_popup
+    class Popup : public Aurora::Client::PrivateClient::xdg_popup
     {
     public:
         Popup(QWaylandXdgSurface *xdgSurface, struct ::xdg_popup *object);
