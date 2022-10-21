@@ -20,7 +20,7 @@ on:
 
 jobs:
   checks:
-    uses: lirios/.github/workflows/checks.yml@master
+    uses: lirios/.github/.github/workflows/checks.yml@master
     with:
       enable_wip: true
       enable_reuse: true

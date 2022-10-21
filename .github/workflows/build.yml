@@ -18,7 +18,7 @@ on:
 
 jobs:
   linux-qt5:
-    uses: lirios/.github/workflows/build-linux-qt5.yml@master
+    uses: lirios/.github/.github/workflows/build-linux-qt5.yml@master
     with:
       dependencies: "AppStream libAppStreamQt-devel fwupd-devel libostree-devel flatpak-devel"
       build_dependencies: "cmake-shared qtgsettings wayland"

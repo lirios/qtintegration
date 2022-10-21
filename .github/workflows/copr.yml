@@ -11,6 +11,6 @@ on:
 
 jobs:
   copr:
-    uses: lirios/.github/workflows/copr.yml@master
+    uses: lirios/.github/.github/workflows/copr.yml@master
     secrets:
       COPR_WEBHOOK_URL: ${{ secrets.COPR_WEBHOOK_URL }}
