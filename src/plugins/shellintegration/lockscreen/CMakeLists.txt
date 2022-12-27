@@ -1,4 +1,4 @@
-find_package(Xkbcommon REQUIRED)
+find_package(XkbCommon REQUIRED)
 find_package(Qt5XkbCommonSupport REQUIRED PRIVATE)
 
 if(NOT TARGET Liri::AuroraClient)
@@ -16,7 +16,7 @@ liri_add_plugin(liri-lockscreen
         Qt5::WaylandClientPrivate
         Qt5::XkbCommonSupport
         Qt5::XkbCommonSupportPrivate
-        PkgConfig::Xkbcommon
+        XkbCommon::XkbCommon
         Liri::AuroraClient
 )
 
