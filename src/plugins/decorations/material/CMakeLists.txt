@@ -1,5 +1,5 @@
 find_package(Wayland REQUIRED)
-find_package(Xkbcommon REQUIRED)
+find_package(XkbCommon REQUIRED)
 find_package(Qt5XkbCommonSupport REQUIRED PRIVATE)
 
 liri_add_plugin(materialdecoration
@@ -15,7 +15,7 @@ liri_add_plugin(materialdecoration
         Qt5::WaylandClient
         Qt5::WaylandClientPrivate
         Wayland::Client
-        PkgConfig::Xkbcommon
+        XkbCommon::XkbCommon
 )
 
 liri_finalize_plugin(materialdecoration)
