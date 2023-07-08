@@ -28,13 +28,13 @@ if(NOT UNIX OR ANDROID)
 endif()
 
 ## Features:
-option(LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION "Material decoration" ON)
+option(FEATURE_qtintegration_material_decoration "Material decoration" ON)
 add_feature_info("QtIntegration::MaterialDecoration" LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION "Build Material decoration")
-option(LIRI_QTINTEGRATION_ENABLE_PLATFORMTHEME "Qt platform theme" ON)
+option(FEATURE_qtintegration_platformtheme "Qt platform theme" ON)
 add_feature_info("QtIntegration::PlatformTheme" LIRI_QTINTEGRATION_ENABLE_PLATFORMTHEME "Build Qt platform theme")
-option(LIRI_QTINTEGRATION_ENABLE_LAYER_SHELL_INTEGRATION "Layer-shell QtWayland shell integration" ON)
+option(FEATURE_qtintegration_layer_shell_integration "Layer-shell QtWayland shell integration" ON)
 add_feature_info("QtIntegration::LayerShell" LIRI_QTINTEGRATION_ENABLE_LAYER_SHELL_INTEGRATION "Build layer-shell QtWayland shell integration")
-option(LIRI_QTINTEGRATION_ENABLE_LOCKSCREEN_INTEGRATION "Lockscreen QtWayland shell integration" ON)
+option(FEATURE_qtintegration_lockscreen_integration "Lockscreen QtWayland shell integration" ON)
 add_feature_info("QtIntegration::LockScreen" LIRI_QTINTEGRATION_ENABLE_LOCKSCREEN_INTEGRATION "Build lockscreen QtWayland shell integration")
 
 ## Find Wayland:
@@ -57,15 +57,15 @@ find_package(Qt5 "${QT_MIN_VERSION}"
 )
 
 ## Add subdirectories:
-if(LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION)
+if(FEATURE_qtintegration_material_decoration)
     add_subdirectory(src/plugins/decorations/material)
 endif()
-if(LIRI_QTINTEGRATION_ENABLE_PLATFORMTHEME)
+if(FEATURE_qtintegration_platformtheme)
     add_subdirectory(src/plugins/platformtheme)
 endif()
-if(LIRI_QTINTEGRATION_ENABLE_LAYER_SHELL_INTEGRATION)
+if(FEATURE_qtintegration_layer_shell_integration)
     add_subdirectory(src/plugins/shellintegration/layershell)
 endif()
-if(LIRI_QTINTEGRATION_ENABLE_LOCKSCREEN_INTEGRATION)
+if(FEATURE_qtintegration_lockscreen_integration)
     add_subdirectory(src/plugins/shellintegration/lockscreen)
 endif()
