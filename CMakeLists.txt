@@ -13,7 +13,7 @@ if(NOT LIRI_LOCAL_ECM)
 endif()
 
 ## Add some paths to check for CMake modules:
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_CURRENT_SOURCE_DIR}/cmake/3rdparty/extra-cmake-modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_CURRENT_SOURCE_DIR}/cmake/3rdparty/extra-cmake-modules;${CMAKE_CURRENT_SOURCE_DIR}/cmake/3rdparty/kwin")
 
 ## Liri specific setup common for all modules:
 include(LiriSetup)
@@ -36,6 +36,9 @@ if(FEATURE_qtintegration_material_decoration)
 endif()
 if(FEATURE_qtintegration_platformtheme)
     add_subdirectory(src/plugins/platformtheme)
+endif()
+if(FEATURE_qtintegration_aurora_eglfs)
+    add_subdirectory(src/plugins/platforms/eglfs)
 endif()
 if(FEATURE_qtintegration_layer_shell_integration)
     add_subdirectory(src/plugins/shellintegration/layershell)

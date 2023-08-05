@@ -15,6 +15,7 @@ find_package(Qt5 "${QT_MIN_VERSION}"
     CONFIG REQUIRED
     COMPONENTS
         Core
+        DBus
         Gui
         Widgets
         QuickControls2
@@ -32,6 +33,64 @@ set(LIRI_FEATURE_qtintegration_material_decoration "$<IF:${FEATURE_qtintegration
 option(FEATURE_qtintegration_platformtheme "Qt platform theme" ON)
 add_feature_info("QtIntegration::PlatformTheme" FEATURE_qtintegration_platformtheme "Build Qt platform theme")
 set(LIRI_FEATURE_qtintegration_platformtheme "$<IF:${FEATURE_qtintegration_platformtheme},1,0>")
+
+# Qt platforms
+option(FEATURE_qtintegration_aurora_eglfs "Qt platform plugin for Aurora compositors" ON)
+if(FEATURE_qtintegration_aurora_eglfs)
+    find_package(Qt${QT_MAJOR_VERSION}FontDatabaseSupport QUIET)
+    find_package(Qt${QT_MAJOR_VERSION}ThemeSupport QUIET)
+    find_package(Qt${QT_MAJOR_VERSION}EventDispatcherSupport QUIET)
+    find_package(Qt${QT_MAJOR_VERSION}EglSupport QUIET)
+    find_package(Qt${QT_MAJOR_VERSION}PlatformCompositorSupport QUIET)
+    find_package(Qt${QT_MAJOR_VERSION}ServiceSupport QUIET)
+    find_package(Qt${QT_MAJOR_VERSION}FbSupport QUIET)
+    find_package(EGL QUIET)
+    find_package(Fontconfig QUIET)
+    find_package(Liri1AuroraPlatform QUIET)
+
+    if(NOT TARGET Qt${QT_MAJOR_VERSION}FontDatabaseSupport::Qt${QT_MAJOR_VERSION}FontDatabaseSupport)
+        message(WARNING "You need Qt${QT_MAJOR_VERSION}FontDatabaseSupport for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET Qt${QT_MAJOR_VERSION}ThemeSupport::Qt${QT_MAJOR_VERSION}ThemeSupport)
+        message(WARNING "You need Qt${QT_MAJOR_VERSION}ThemeSupport for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET Qt${QT_MAJOR_VERSION}EventDispatcherSupport::Qt${QT_MAJOR_VERSION}EventDispatcherSupport)
+        message(WARNING "You need Qt${QT_MAJOR_VERSION}EventDispatcherSupport for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET Qt${QT_MAJOR_VERSION}EglSupport::Qt${QT_MAJOR_VERSION}EglSupport)
+        message(WARNING "You need Qt${QT_MAJOR_VERSION}EglSupport for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET Qt${QT_MAJOR_VERSION}PlatformCompositorSupport::Qt${QT_MAJOR_VERSION}PlatformCompositorSupport)
+        message(WARNING "You need Qt${QT_MAJOR_VERSION}PlatformCompositorSupport for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET Qt${QT_MAJOR_VERSION}ServiceSupport::Qt${QT_MAJOR_VERSION}ServiceSupport)
+        message(WARNING "You need Qt${QT_MAJOR_VERSION}ServiceSupport for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET Qt${QT_MAJOR_VERSION}FbSupport::Qt${QT_MAJOR_VERSION}FbSupport)
+        message(WARNING "You need Qt${QT_MAJOR_VERSION}FbSupport for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET EGL::EGL)
+        message(WARNING "You need EGL for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET Fontconfig::Fontconfig)
+        message(WARNING "You need Fontconfig for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+    if(NOT TARGET Liri::AuroraPlatform)
+        message(WARNING "You need AuroraPlatform for QtIntegration::AuroraEglFS")
+        set(FEATURE_qtintegration_aurora_eglfs OFF)
+    endif()
+endif()
+add_feature_info("QtIntegration::AuroraEglFS" FEATURE_qtintegration_aurora_eglfs "Build Qt platform plugin for Aurora compositors")
+set(LIRI_FEATURE_qtintegration_aurora_eglfs "$<IF:${FEATURE_qtintegration_aurora_eglfs},1,0>")
 
 # QtWayland shell integrations: layer-shell
 option(FEATURE_qtintegration_layer_shell_integration "Layer-shell QtWayland shell integration" ON)
