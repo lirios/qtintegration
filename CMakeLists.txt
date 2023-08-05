@@ -15,9 +15,6 @@ endif()
 ## Add some paths to check for CMake modules:
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_CURRENT_SOURCE_DIR}/cmake/3rdparty/extra-cmake-modules")
 
-## Set minimum versions required:
-set(QT_MIN_VERSION "5.15.0")
-
 ## Liri specific setup common for all modules:
 include(LiriSetup)
 
@@ -28,33 +25,10 @@ if(NOT UNIX OR ANDROID)
 endif()
 
 ## Features:
-option(FEATURE_qtintegration_material_decoration "Material decoration" ON)
-add_feature_info("QtIntegration::MaterialDecoration" LIRI_QTINTEGRATION_ENABLE_MATERIAL_DECORATION "Build Material decoration")
-option(FEATURE_qtintegration_platformtheme "Qt platform theme" ON)
-add_feature_info("QtIntegration::PlatformTheme" LIRI_QTINTEGRATION_ENABLE_PLATFORMTHEME "Build Qt platform theme")
-option(FEATURE_qtintegration_layer_shell_integration "Layer-shell QtWayland shell integration" ON)
-add_feature_info("QtIntegration::LayerShell" LIRI_QTINTEGRATION_ENABLE_LAYER_SHELL_INTEGRATION "Build layer-shell QtWayland shell integration")
-option(FEATURE_qtintegration_lockscreen_integration "Lockscreen QtWayland shell integration" ON)
-add_feature_info("QtIntegration::LockScreen" LIRI_QTINTEGRATION_ENABLE_LOCKSCREEN_INTEGRATION "Build lockscreen QtWayland shell integration")
-
-## Find Wayland:
-find_package(Wayland 1.15 COMPONENTS Client)
-set_package_properties(Wayland PROPERTIES TYPE REQUIRED)
-
-## Find wayland-protocols:
-find_package(WaylandProtocols 1.15)
-set_package_properties(WaylandProtocols PROPERTIES TYPE REQUIRED)
-
-## Find Qt 5:
-find_package(Qt5 "${QT_MIN_VERSION}"
-    CONFIG REQUIRED
-    COMPONENTS
-        Core
-        Gui
-        Widgets
-        QuickControls2
-        WaylandClient
-)
+include(features.cmake)
+if(NOT LIRI_SUPERBUILD)
+    feature_summary(WHAT ENABLED_FEATURES DISABLED_FEATURES)
+endif()
 
 ## Add subdirectories:
 if(FEATURE_qtintegration_material_decoration)
