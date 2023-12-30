@@ -26,9 +26,6 @@ endif()
 
 ## Features:
 include(features.cmake)
-if(NOT LIRI_SUPERBUILD)
-    feature_summary(WHAT ENABLED_FEATURES DISABLED_FEATURES)
-endif()
 
 ## Add subdirectories:
 if(FEATURE_qtintegration_material_decoration)
@@ -36,9 +33,6 @@ if(FEATURE_qtintegration_material_decoration)
 endif()
 if(FEATURE_qtintegration_platformtheme)
     add_subdirectory(src/plugins/platformtheme)
-endif()
-if(FEATURE_qtintegration_layer_shell_integration)
-    add_subdirectory(src/plugins/shellintegration/layershell)
 endif()
 if(FEATURE_qtintegration_lockscreen_integration)
     add_subdirectory(src/plugins/shellintegration/lockscreen)

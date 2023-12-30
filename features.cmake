@@ -33,12 +33,12 @@ option(FEATURE_qtintegration_platformtheme "Qt platform theme" ON)
 add_feature_info("QtIntegration::PlatformTheme" FEATURE_qtintegration_platformtheme "Build Qt platform theme")
 set(LIRI_FEATURE_qtintegration_platformtheme "$<IF:${FEATURE_qtintegration_platformtheme},1,0>")
 
-# QtWayland shell integrations: layer-shell
-option(FEATURE_qtintegration_layer_shell_integration "Layer-shell QtWayland shell integration" ON)
-add_feature_info("QtIntegration::LayerShell" FEATURE_qtintegration_layer_shell_integration "Build layer-shell QtWayland shell integration")
-set(LIRI_FEATURE_qtintegration_layer_shell_integration "$<IF:${FEATURE_qtintegration_layer_shell_integration},1,0>")
-
 # QtWayland shell integrations: lockscreen
 option(FEATURE_qtintegration_lockscreen_integration "Lockscreen QtWayland shell integration" ON)
 add_feature_info("QtIntegration::LockScreen" FEATURE_qtintegration_lockscreen_integration "Build lockscreen QtWayland shell integration")
 set(LIRI_FEATURE_qtintegration_lockscreen_integration "$<IF:${FEATURE_qtintegration_lockscreen_integration},1,0>")
+
+## Features summary:
+if(NOT LIRI_SUPERBUILD)
+    feature_summary(WHAT ENABLED_FEATURES DISABLED_FEATURES)
+endif()
