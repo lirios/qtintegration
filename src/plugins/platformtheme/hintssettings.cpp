@@ -18,6 +18,8 @@
 
 #include "hintssettings.h"
 
+using namespace Qt::Literals::StringLiterals;
+
 // Default fonts
 static const char defaultSystemFontName[] = "Droid Sans";
 static int defaultSystemFontSize = 11;
@@ -149,6 +151,8 @@ void HintsSettings::collectHints()
     m_hints.insert(QPlatformTheme::SpellCheckUnderlineStyle,
                    int(QTextCharFormat::SpellCheckUnderline));
     m_hints.insert(QPlatformTheme::TabFocusBehavior, int(Qt::TabFocusAllControls));
+    m_hints.insert(QPlatformTheme::MouseCursorTheme, m_settings->value("cursorTheme"_L1));
+    m_hints.insert(QPlatformTheme::MouseCursorSize, m_settings->value("cursorSize"_L1));
     QList<int> pixmapSizes;
     pixmapSizes
             << 512 << 256 << 128 << 96 << 64 << 48
