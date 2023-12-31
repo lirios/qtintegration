@@ -14,7 +14,7 @@
 #include <QtWidgets/QToolButton>
 #include <QStandardPaths>
 
-#include <Qt5GSettings/QGSettings>
+#include <Qt6GSettings/QGSettings>
 
 #include "hintssettings.h"
 
@@ -48,7 +48,7 @@ static QStringList xdgIconThemePaths()
         xdgDataDirs = QLatin1String("/usr/local/share/:/usr/share/");
 
     // Split ':' path separator from XDG data directories
-    xdgPaths += xdgDataDirs.split(QLatin1Char(':'), QString::SkipEmptyParts);
+    xdgPaths += xdgDataDirs.split(QLatin1Char(':'), Qt::SkipEmptyParts);
 
     // Append the icons directory to all XDG data directories
     for (const QString &xdgPath : qAsConst(xdgPaths)) {
@@ -148,10 +148,7 @@ void HintsSettings::collectHints()
                    QPlatformTheme::AnimateToolBoxUiEffect);
     m_hints.insert(QPlatformTheme::SpellCheckUnderlineStyle,
                    int(QTextCharFormat::SpellCheckUnderline));
-    m_hints.insert(QPlatformTheme::TabAllWidgets, true);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
     m_hints.insert(QPlatformTheme::TabFocusBehavior, int(Qt::TabFocusAllControls));
-#endif
     QList<int> pixmapSizes;
     pixmapSizes
             << 512 << 256 << 128 << 96 << 64 << 48

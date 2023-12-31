@@ -2,17 +2,16 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 ## Find Wayland:
-find_package(Wayland 1.15 COMPONENTS Client)
-set_package_properties(Wayland PROPERTIES TYPE REQUIRED)
+#find_package(Wayland 1.15 COMPONENTS Client)
+#set_package_properties(Wayland PROPERTIES TYPE REQUIRED)
 
 ## Find wayland-protocols:
-find_package(WaylandProtocols 1.15)
-set_package_properties(WaylandProtocols PROPERTIES TYPE REQUIRED)
+#find_package(WaylandProtocols 1.15)
+#set_package_properties(WaylandProtocols PROPERTIES TYPE REQUIRED)
 
-## Find Qt 5:
-set(QT_MIN_VERSION "5.15.0")
-find_package(Qt5 "${QT_MIN_VERSION}"
-    CONFIG REQUIRED
+## Find Qt:
+find_package(Qt6 "6.6.0"
+    REQUIRED
     COMPONENTS
         Core
         Gui
