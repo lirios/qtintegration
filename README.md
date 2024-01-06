@@ -2,9 +2,9 @@ Qt applications integration
 ===========================
 
 [![License](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
-[![GitHub release](https://img.shields.io/github/release/lirios/platformtheme.svg)](https://github.com/lirios/platformtheme)
-[![GitHub issues](https://img.shields.io/github/issues/lirios/platformtheme.svg)](https://github.com/lirios/platformtheme/issues)
-[![CI](https://github.com/lirios/platformtheme/workflows/CI/badge.svg?branch=develop)](https://github.com/lirios/platformtheme/actions?query=workflow%3ACI)
+[![GitHub release](https://img.shields.io/github/release/lirios/qtintegration.svg)](https://github.com/lirios/qtintegration)
+[![GitHub issues](https://img.shields.io/github/issues/lirios/qtintegration.svg)](https://github.com/lirios/qtintegration/issues)
+[![CI](https://github.com/lirios/qtintegration/workflows/CI/badge.svg?branch=develop)](https://github.com/lirios/qtintegration/actions?query=workflow%3ACI)
 
 Qt applications integration with the Liri desktop environment.
 
