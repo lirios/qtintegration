@@ -20,5 +20,5 @@ jobs:
   linux-qt6:
     uses: lirios/.github/.github/workflows/build-linux-qt6.yml@master
     with:
-      dependencies: "AppStream libAppStreamQt-devel fwupd-devel libostree-devel flatpak-devel"
+      dependencies: "appstream-devel appstream-qt-devel fwupd-devel ostree-devel flatpak-devel"
       build_dependencies: "cmake-shared qtgsettings aurora-scanner"
