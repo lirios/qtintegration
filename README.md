@@ -15,7 +15,6 @@ Contains:
 
   * Platform theme plugin.
   * Client-side decoration for Qt applications on Wayland.
-  * Wayland shell integration for layer-shell and xdg-shell.
 
 **Material Decoration**
 
@@ -31,19 +30,12 @@ Qt >= 6.6.0 with at least the following modules is required:
 
  * [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
  * [qtquickcontrols2](http://code.qt.io/cgit/qt/qtquickcontrols2.git)
- * [qtwayland](http://code.qt.io/cgit/qt/qtwayland.git)
 
 And the following modules:
 
  * [cmake](https://gitlab.kitware.com/cmake/cmake) >= 3.19.0
  * [extra-cmake-modules](https://invent.kde.org/frameworks/extra-cmake-modules) >= 5.245.0
  * [qtgsettings](https://github.com/lirios/qtgsettings.git) >= 2.0.0
- * [wayland-protocols](https://gitlab.freedesktop.org/wayland/wayland-protocols) >= 1.15
- * [xkbcommon](https://github.com/xkbcommon/libxkbcommon)
-
-Build-time only dependencies:
-
- * [aurora-scanner](https://github.com/lirios/aurora-scanner.git)
 
 ## Installation
 
