@@ -1,6 +1,4 @@
 find_package(Wayland REQUIRED)
-find_package(XkbCommon REQUIRED)
-#find_package(Qt6XkbCommonSupport REQUIRED PRIVATE)
 
 qt6_add_plugin(MaterialQtWaylandDecoration
     SHARED
@@ -21,9 +19,6 @@ target_link_libraries(MaterialQtWaylandDecoration
         Qt6::WaylandClient
     PRIVATE
         Wayland::Client
-        XkbCommon::XkbCommon
-        #Qt6::XkbCommonSupport
-        #Qt6::XkbCommonSupportPrivate
         Qt6::WaylandClientPrivate
 )
 
