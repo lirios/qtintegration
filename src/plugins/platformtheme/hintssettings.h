@@ -20,17 +20,20 @@ public:
     explicit HintsSettings(QObject *parent = nullptr);
     ~HintsSettings();
 
-    inline QVariant themeHint(QPlatformTheme::ThemeHint hint) const {
+    inline QVariant themeHint(QPlatformTheme::ThemeHint hint) const
+    {
         if (m_hints.contains(hint))
             return m_hints[hint];
         return QVariant();
     }
 
-    inline QPalette *palette(QPlatformTheme::Palette type) const {
+    inline QPalette *palette(QPlatformTheme::Palette type) const
+    {
         return m_resources.palettes[type];
     }
 
-    inline QFont *font(QPlatformTheme::Font type) const {
+    inline QFont *font(QPlatformTheme::Font type) const
+    {
         return m_resources.fonts[type];
     }
 

@@ -9,7 +9,8 @@
 class LiriThemePlugin : public QPlatformThemePlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QPA.QPlatformThemeFactoryInterface.5.1" FILE "liritheme.json")
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QPA.QPlatformThemeFactoryInterface.5.1" FILE
+                          "liritheme.json")
 public:
     explicit LiriThemePlugin(QObject *parent = 0);
 

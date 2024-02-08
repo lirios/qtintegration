@@ -78,14 +78,12 @@ HintsSettings::HintsSettings(QObject *parent)
 
     // Change only the few hints involved, for some of these settings
     // we need to take actions to refresh applications
-    connect(m_settings, &QtGSettings::QGSettings::settingChanged, this,
-            [this](const QString &key) {
+    connect(m_settings, &QtGSettings::QGSettings::settingChanged, this, [this](const QString &key) {
         if (key == QStringLiteral("cursorBlinkTime"))
             qtSettingsChanged();
         else if (key == QStringLiteral("toolButtonStyle"))
             toolButtonStyleChanged();
-        else if (key == QStringLiteral("iconTheme") ||
-                 key == QStringLiteral("toolbarIconsSize"))
+        else if (key == QStringLiteral("iconTheme") || key == QStringLiteral("toolbarIconsSize"))
             iconChanged();
         else if (key == QStringLiteral("widgetsStyle"))
             styleChanged();
@@ -139,24 +137,19 @@ void HintsSettings::collectHints()
     m_hints.insert(QPlatformTheme::UseFullScreenForPopupMenu, true);
     // TODO: Use the Mac keyboard scheme only if an Apple keyboard is detected
     // int(MacKeyboardScheme);
-    m_hints.insert(QPlatformTheme::KeyboardScheme,
-                   int(QPlatformTheme::GnomeKeyboardScheme));
-    m_hints.insert(QPlatformTheme::UiEffects,
-                   QPlatformTheme::AnimateMenuUiEffect |
-                   QPlatformTheme::FadeMenuUiEffect |
-                   QPlatformTheme::AnimateComboUiEffect |
-                   QPlatformTheme::AnimateTooltipUiEffect |
-                   QPlatformTheme::FadeTooltipUiEffect |
-                   QPlatformTheme::AnimateToolBoxUiEffect);
+    m_hints.insert(QPlatformTheme::KeyboardScheme, int(QPlatformTheme::GnomeKeyboardScheme));
+    m_hints.insert(
+            QPlatformTheme::UiEffects,
+            QPlatformTheme::AnimateMenuUiEffect | QPlatformTheme::FadeMenuUiEffect
+                    | QPlatformTheme::AnimateComboUiEffect | QPlatformTheme::AnimateTooltipUiEffect
+                    | QPlatformTheme::FadeTooltipUiEffect | QPlatformTheme::AnimateToolBoxUiEffect);
     m_hints.insert(QPlatformTheme::SpellCheckUnderlineStyle,
                    int(QTextCharFormat::SpellCheckUnderline));
     m_hints.insert(QPlatformTheme::TabFocusBehavior, int(Qt::TabFocusAllControls));
     m_hints.insert(QPlatformTheme::MouseCursorTheme, m_settings->value("cursorTheme"_L1));
     m_hints.insert(QPlatformTheme::MouseCursorSize, m_settings->value("cursorSize"_L1));
     QList<int> pixmapSizes;
-    pixmapSizes
-            << 512 << 256 << 128 << 96 << 64 << 48
-            << 32 << 24 << 22 << 16;
+    pixmapSizes << 512 << 256 << 128 << 96 << 64 << 48 << 32 << 24 << 22 << 16;
     m_hints.insert(QPlatformTheme::IconPixmapSizes, QVariant::fromValue(pixmapSizes));
 }
 
@@ -164,8 +157,9 @@ void HintsSettings::refreshPalette()
 {
     // Locate color scheme
     QString scheme = m_settings->value(QStringLiteral("colorScheme")).toString();
-    QString schemeFileName = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                                    QStringLiteral("color-schemes/%1.colors").arg(scheme));
+    QString schemeFileName =
+            QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                   QStringLiteral("color-schemes/%1.colors").arg(scheme));
 
     // Palette
     QPalette systemPalette = QPalette();
@@ -189,25 +183,29 @@ void HintsSettings::refreshFonts()
     if (QFont *systemFont = readFont(fontFamily, fontSize))
         m_resources.fonts[QPlatformTheme::SystemFont] = systemFont;
     else
-        m_resources.fonts[QPlatformTheme::SystemFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+        m_resources.fonts[QPlatformTheme::SystemFont] =
+                new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
 
     // Monospace font
     if (QFont *monospaceFont = readFont(monospaceFontFamily, monospaceFontSize))
         m_resources.fonts[QPlatformTheme::FixedFont] = monospaceFont;
     else
-        m_resources.fonts[QPlatformTheme::FixedFont] = new QFont(QLatin1String(defaultMonospaceFontName), defaultMonospaceFontSize);
+        m_resources.fonts[QPlatformTheme::FixedFont] =
+                new QFont(QLatin1String(defaultMonospaceFontName), defaultMonospaceFontSize);
 
     // Small font
     if (QFont *smallFont = readFont(smallFontFamily, smallFontSize))
         m_resources.fonts[QPlatformTheme::SmallFont] = smallFont;
     else
-        m_resources.fonts[QPlatformTheme::SmallFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+        m_resources.fonts[QPlatformTheme::SmallFont] =
+                new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
 
     // Mini font
     if (QFont *miniFont = readFont(miniFontFamily, miniFontSize))
         m_resources.fonts[QPlatformTheme::MiniFont] = miniFont;
     else
-        m_resources.fonts[QPlatformTheme::MiniFont] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+        m_resources.fonts[QPlatformTheme::MiniFont] =
+                new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
 
     // Other fonts
     QList<QPlatformTheme::Font> fonts;
@@ -217,7 +215,8 @@ void HintsSettings::refreshFonts()
         if (QFont *systemFont = readFont(fontFamily, fontSize))
             m_resources.fonts[font] = systemFont;
         else
-            m_resources.fonts[font] = new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
+            m_resources.fonts[font] =
+                    new QFont(QLatin1String(defaultSystemFontName), defaultSystemFontSize);
         m_resources.fonts[font]->setBold(true);
     }
 }

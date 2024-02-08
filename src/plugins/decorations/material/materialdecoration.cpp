@@ -105,7 +105,9 @@ QMargins QWaylandMaterialDecoration::margins(MarginsType marginsType) const
     // Title bar is 32dp plus borders
     if (window() && window()->type() == Qt::Popup)
         return QMargins(0, 0, 0, 0);
-    if (window() && ((window()->windowStates() & Qt::WindowMaximized) || (window()->windowStates() & Qt::WindowFullScreen)))
+    if (window()
+        && ((window()->windowStates() & Qt::WindowMaximized)
+            || (window()->windowStates() & Qt::WindowFullScreen)))
         return QMargins(0, TITLE_BAR_HEIGHT, 0, 0);
     return QMargins(WINDOW_BORDER, TITLE_BAR_HEIGHT, WINDOW_BORDER, WINDOW_BORDER);
 }
@@ -145,15 +147,18 @@ void QWaylandMaterialDecoration::paint(QPaintDevice *device)
     int radius = window()->windowStates() & Qt::WindowMaximized ? 0 : dp(3);
     QPainterPath roundedRect;
     roundedRect.addRoundedRect(margins().left(), margins().top() - TITLE_BAR_HEIGHT,
-                               frameGeometry.width() - margins().left() - margins().right(), TITLE_BAR_HEIGHT + radius * 2,
-                               radius, radius);
+                               frameGeometry.width() - margins().left() - margins().right(),
+                               TITLE_BAR_HEIGHT + radius * 2, radius, radius);
     p.fillPath(roundedRect.simplified(), m_backgroundColor);
 
     // Borders (transparent so the border is not noticeable)
     QPainterPath borderPath;
-    borderPath.addRect(0, margins().top(), margins().left(), frameGeometry.height() - margins().top());
-    borderPath.addRect(0, frameGeometry.height() - margins().bottom(), frameGeometry.width(), margins().bottom());
-    borderPath.addRect(frameGeometry.width() - margins().right(), margins().top(), margins().right(), frameGeometry.height() - margins().bottom());
+    borderPath.addRect(0, margins().top(), margins().left(),
+                       frameGeometry.height() - margins().top());
+    borderPath.addRect(0, frameGeometry.height() - margins().bottom(), frameGeometry.width(),
+                       margins().bottom());
+    borderPath.addRect(frameGeometry.width() - margins().right(), margins().top(),
+                       margins().right(), frameGeometry.height() - margins().bottom());
     p.fillPath(borderPath, Qt::transparent);
 
     // Window title
@@ -195,7 +200,8 @@ void QWaylandMaterialDecoration::paint(QPaintDevice *device)
         rect = closeButtonRect();
         qreal crossSize = rect.height() / 2.3;
         QPointF crossCenter(rect.center());
-        QRectF crossRect(crossCenter.x() - crossSize / 2, crossCenter.y() - crossSize / 2, crossSize, crossSize);
+        QRectF crossRect(crossCenter.x() - crossSize / 2, crossCenter.y() - crossSize / 2,
+                         crossSize, crossSize);
         pen.setWidth(2);
         p.setPen(pen);
         p.drawLine(crossRect.topLeft(), crossRect.bottomRight());
@@ -229,7 +235,8 @@ void QWaylandMaterialDecoration::paint(QPaintDevice *device)
                 lines.append(QLineF(rect.left(), rect.top() + 2, rect.left(), rect.bottom() - 2));
                 lines.append(QLineF(rect.right(), rect.top() + 2, rect.right(), rect.bottom() - 2));
                 lines.append(QLineF(rect.bottomLeft(), rect.bottomRight()));
-                lines.append(QLineF(rect.left() + 2, rect.top() + 2, rect.right() - 2, rect.top() + 2));
+                lines.append(
+                        QLineF(rect.left() + 2, rect.top() + 2, rect.right() - 2, rect.top() + 2));
                 p.drawLines(lines);
             }
             p.restore();
@@ -277,8 +284,9 @@ bool QWaylandMaterialDecoration::handleMouse(QWaylandInputDevice *inputDevice, c
             QWindowSystemInterface::handleCloseEvent(window());
     } else if (isMaximizeable() && maximizeButtonRect().contains(local)) {
         if (clickButton(b, Maximize))
-            window()->setWindowState(window()->windowStates() & Qt::WindowMaximized ? Qt::WindowNoState
-                                                                                    : Qt::WindowMaximized);
+            window()->setWindowState(window()->windowStates() & Qt::WindowMaximized
+                                             ? Qt::WindowNoState
+                                             : Qt::WindowMaximized);
     } else if (minimizeButtonRect().contains(local)) {
         if (clickButton(b, Minimize))
             window()->setWindowState(Qt::WindowMinimized);
@@ -300,7 +308,9 @@ bool QWaylandMaterialDecoration::handleMouse(QWaylandInputDevice *inputDevice, c
     return true;
 }
 
-bool QWaylandMaterialDecoration::handleTouch(QWaylandInputDevice *inputDevice, const QPointF &local, const QPointF &global, QEventPoint::State state, Qt::KeyboardModifiers mods)
+bool QWaylandMaterialDecoration::handleTouch(QWaylandInputDevice *inputDevice, const QPointF &local,
+                                             const QPointF &global, QEventPoint::State state,
+                                             Qt::KeyboardModifiers mods)
 {
     Q_UNUSED(inputDevice);
     Q_UNUSED(global);
@@ -311,8 +321,9 @@ bool QWaylandMaterialDecoration::handleTouch(QWaylandInputDevice *inputDevice, c
         if (closeButtonRect().contains(local))
             QWindowSystemInterface::handleCloseEvent(window());
         else if (isMaximizeable() && maximizeButtonRect().contains(local))
-            window()->setWindowState(window()->windowStates() & Qt::WindowMaximized ? Qt::WindowNoState
-                                                                                    : Qt::WindowMaximized);
+            window()->setWindowState(window()->windowStates() & Qt::WindowMaximized
+                                             ? Qt::WindowNoState
+                                             : Qt::WindowMaximized);
         else if (minimizeButtonRect().contains(local))
             window()->setWindowState(Qt::WindowMinimized);
         else if (local.y() <= margins().top())
@@ -430,18 +441,16 @@ int QWaylandMaterialDecoration::dp(int dp) const
 
 bool QWaylandMaterialDecoration::isMinimizeable() const
 {
-    return window()->flags() & Qt::WindowMinimizeButtonHint ||
-            window()->isTopLevel();
+    return window()->flags() & Qt::WindowMinimizeButtonHint || window()->isTopLevel();
 }
 
 bool QWaylandMaterialDecoration::isMaximizeable() const
 {
-    return window()->flags() & Qt::WindowMaximizeButtonHint || (
-                (window()->maximumSize().width() > window()->minimumSize().width()) &&
-                (window()->maximumSize().height() > window()->minimumSize().height())
-                );
+    return window()->flags() & Qt::WindowMaximizeButtonHint
+            || ((window()->maximumSize().width() > window()->minimumSize().width())
+                && (window()->maximumSize().height() > window()->minimumSize().height()));
 }
 
-}
+} // namespace QtWaylandClient
 
 QT_END_NAMESPACE

@@ -12,7 +12,10 @@ class ResourceHelper
 {
 public:
     explicit ResourceHelper();
-    ~ResourceHelper() { clear(); }
+    ~ResourceHelper()
+    {
+        clear();
+    }
 
     void clear();
 

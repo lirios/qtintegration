@@ -38,7 +38,8 @@ void ResourceHelper::readPalette(const QString &fileName, QPalette *pal)
 {
     QSettings colorScheme(fileName, QSettings::IniFormat);
 
-    if (!readColor(pal, QPalette::Button, colorScheme.value(QStringLiteral("Colors:Button/BackgroundNormal")))) {
+    if (!readColor(pal, QPalette::Button,
+                   colorScheme.value(QStringLiteral("Colors:Button/BackgroundNormal")))) {
         // kcolorscheme.cpp: SetDefaultColors
         const QColor defaultWindowBackground(214, 210, 208);
         const QColor defaultButtonBackground(223, 220, 217);
@@ -46,18 +47,29 @@ void ResourceHelper::readPalette(const QString &fileName, QPalette *pal)
         return;
     }
 
-    readColor(pal, QPalette::Window, colorScheme.value(QStringLiteral("Colors:Window/BackgroundNormal")));
-    readColor(pal, QPalette::Text, colorScheme.value(QStringLiteral("Colors:View/ForegroundNormal")));
-    readColor(pal, QPalette::WindowText, colorScheme.value(QStringLiteral("Colors:Window/ForegroundNormal")));
-    readColor(pal, QPalette::Base, colorScheme.value(QStringLiteral("Colors:View/BackgroundNormal")));
-    readColor(pal, QPalette::Highlight, colorScheme.value(QStringLiteral("Colors:Selection/BackgroundNormal")));
-    readColor(pal, QPalette::HighlightedText, colorScheme.value(QStringLiteral("Colors:Selection/ForegroundNormal")));
-    readColor(pal, QPalette::AlternateBase, colorScheme.value(QStringLiteral("Colors:View/BackgroundAlternate")));
-    readColor(pal, QPalette::ButtonText, colorScheme.value(QStringLiteral("Colors:Button/ForegroundNormal")));
+    readColor(pal, QPalette::Window,
+              colorScheme.value(QStringLiteral("Colors:Window/BackgroundNormal")));
+    readColor(pal, QPalette::Text,
+              colorScheme.value(QStringLiteral("Colors:View/ForegroundNormal")));
+    readColor(pal, QPalette::WindowText,
+              colorScheme.value(QStringLiteral("Colors:Window/ForegroundNormal")));
+    readColor(pal, QPalette::Base,
+              colorScheme.value(QStringLiteral("Colors:View/BackgroundNormal")));
+    readColor(pal, QPalette::Highlight,
+              colorScheme.value(QStringLiteral("Colors:Selection/BackgroundNormal")));
+    readColor(pal, QPalette::HighlightedText,
+              colorScheme.value(QStringLiteral("Colors:Selection/ForegroundNormal")));
+    readColor(pal, QPalette::AlternateBase,
+              colorScheme.value(QStringLiteral("Colors:View/BackgroundAlternate")));
+    readColor(pal, QPalette::ButtonText,
+              colorScheme.value(QStringLiteral("Colors:Button/ForegroundNormal")));
     readColor(pal, QPalette::Link, colorScheme.value(QStringLiteral("Colors:View/ForegroundLink")));
-    readColor(pal, QPalette::LinkVisited, colorScheme.value(QStringLiteral("Colors:View/ForegroundVisited")));
-    readColor(pal, QPalette::ToolTipBase, colorScheme.value(QStringLiteral("Colors:Tooltip/BackgroundNormal")));
-    readColor(pal, QPalette::ToolTipText, colorScheme.value(QStringLiteral("Colors:Tooltip/ForegroundNormal")));
+    readColor(pal, QPalette::LinkVisited,
+              colorScheme.value(QStringLiteral("Colors:View/ForegroundVisited")));
+    readColor(pal, QPalette::ToolTipBase,
+              colorScheme.value(QStringLiteral("Colors:Tooltip/BackgroundNormal")));
+    readColor(pal, QPalette::ToolTipText,
+              colorScheme.value(QStringLiteral("Colors:Tooltip/ForegroundNormal")));
 
     // Set all color roles to "normal" colors, but calculate disabled colors
     const QColor button = pal->color(QPalette::Button);
