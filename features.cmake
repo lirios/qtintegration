@@ -9,6 +9,7 @@ find_package(Qt6 "6.6.0"
         Gui
         Widgets
         QuickControls2
+        WaylandClient
 )
 
 #### Features

@@ -23,6 +23,10 @@ include(KDEInstallDirs)
 set(KDE_SKIP_NULLPTR_WARNINGS_SETTINGS TRUE)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 
+## Enable keywords such as emit:
+# TODO: Replace keywords such as emit with Q_EMIT
+remove_definitions(-DQT_NO_KEYWORDS)
+
 ## CMake settings:
 include(KDECMakeSettings)
 
@@ -40,7 +44,7 @@ include(features.cmake)
 
 ## Add subdirectories:
 if(FEATURE_qtintegration_material_decoration)
-#    add_subdirectory(src/plugins/decorations/material)
+    add_subdirectory(src/plugins/decorations/material)
 endif()
 if(FEATURE_qtintegration_platformtheme)
     add_subdirectory(src/plugins/platformtheme)

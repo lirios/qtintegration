@@ -31,7 +31,7 @@ enum Button
     Minimize
 };
 
-class Q_WAYLAND_CLIENT_EXPORT QWaylandMaterialDecoration : public QWaylandAbstractDecoration
+class Q_WAYLANDCLIENT_EXPORT QWaylandMaterialDecoration : public QWaylandAbstractDecoration
 {
     Q_OBJECT
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
@@ -55,12 +55,14 @@ Q_SIGNALS:
     void iconColorChanged();
 
 protected:
-    QMargins margins() const override;
+    QMargins margins(MarginsType marginsType = Full) const override;
+
     void paint(QPaintDevice *device) override;
+
     bool handleMouse(QWaylandInputDevice *inputDevice, const QPointF &local, const QPointF &global,
                      Qt::MouseButtons b, Qt::KeyboardModifiers mods) override;
     bool handleTouch(QWaylandInputDevice *inputDevice, const QPointF &local, const QPointF &global,
-                     Qt::TouchPointState state, Qt::KeyboardModifiers mods) override;
+                     QEventPoint::State state, Qt::KeyboardModifiers mods) override;
 
 private:
     void processMouseTop(QWaylandInputDevice *inputDevice, const QPointF &local, Qt::MouseButtons b,

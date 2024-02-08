@@ -1,21 +1,35 @@
 find_package(Wayland REQUIRED)
 find_package(XkbCommon REQUIRED)
-find_package(Qt5XkbCommonSupport REQUIRED PRIVATE)
+#find_package(Qt6XkbCommonSupport REQUIRED PRIVATE)
 
-liri_add_plugin(materialdecoration
-    TYPE
-        wayland-decoration-client
-    SOURCES
-        materialdecoration.cpp
-        materialdecoration.h
-        plugin.cpp
-    LIBRARIES
-        Qt5::XkbCommonSupport
-        Qt5::XkbCommonSupportPrivate
-        Qt5::WaylandClient
-        Qt5::WaylandClientPrivate
-        Wayland::Client
-        XkbCommon::XkbCommon
+qt6_add_plugin(MaterialQtWaylandDecoration
+    SHARED
+    CLASS_NAME QWaylandMaterialDecorationPlugin
+    MANUAL_FINALIZATION
+    materialdecoration.cpp materialdecoration.h
+    plugin.cpp
 )
 
-liri_finalize_plugin(materialdecoration)
+set_target_properties(MaterialQtWaylandDecoration
+    PROPERTIES OUTPUT_NAME liri-material
+)
+
+target_link_libraries(MaterialQtWaylandDecoration
+    PUBLIC
+        Qt6::Core
+        Qt6::Gui
+        Qt6::WaylandClient
+    PRIVATE
+        Wayland::Client
+        XkbCommon::XkbCommon
+        #Qt6::XkbCommonSupport
+        #Qt6::XkbCommonSupportPrivate
+        Qt6::WaylandClientPrivate
+)
+
+qt6_finalize_target(MaterialQtWaylandDecoration)
+
+install(
+    TARGETS MaterialQtWaylandDecoration
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/wayland-decoration-client
+)

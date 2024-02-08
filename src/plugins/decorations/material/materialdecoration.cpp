@@ -10,6 +10,8 @@
 
 #include "materialdecoration.h"
 
+using namespace Qt::StringLiterals;
+
 QT_BEGIN_NAMESPACE
 
 namespace QtWaylandClient {
@@ -95,8 +97,11 @@ QRectF QWaylandMaterialDecoration::minimizeButtonRect() const
                   (margins().top() - BUTTON_WIDTH) / 2, BUTTON_WIDTH, BUTTON_WIDTH);
 }
 
-QMargins QWaylandMaterialDecoration::margins() const
+QMargins QWaylandMaterialDecoration::margins(MarginsType marginsType) const
 {
+    if (marginsType == ShadowsOnly)
+        return QMargins();
+
     // Title bar is 32dp plus borders
     if (window() && window()->type() == Qt::Popup)
         return QMargins(0, 0, 0, 0);
@@ -171,7 +176,7 @@ void QWaylandMaterialDecoration::paint(QPaintDevice *device)
         int dy = qFloor((top.height() - TITLE_FONT_SIZE) / 2);
         QFont font = p.font();
         font.setBold(true);
-        font.setFamily("Roboto");
+        font.setFamily("Roboto"_L1);
         font.setPixelSize(TITLE_FONT_SIZE);
         p.setFont(font);
         QPoint windowTitlePoint(dx, dy - WINDOW_BORDER / 2);
@@ -295,15 +300,13 @@ bool QWaylandMaterialDecoration::handleMouse(QWaylandInputDevice *inputDevice, c
     return true;
 }
 
-bool QWaylandMaterialDecoration::handleTouch(QWaylandInputDevice *inputDevice, const QPointF &local,
-                                             const QPointF &global, Qt::TouchPointState state,
-                                             Qt::KeyboardModifiers mods)
+bool QWaylandMaterialDecoration::handleTouch(QWaylandInputDevice *inputDevice, const QPointF &local, const QPointF &global, QEventPoint::State state, Qt::KeyboardModifiers mods)
 {
     Q_UNUSED(inputDevice);
     Q_UNUSED(global);
     Q_UNUSED(mods);
 
-    bool handled = state == Qt::TouchPointPressed;
+    bool handled = state == QEventPoint::Pressed;
     if (handled) {
         if (closeButtonRect().contains(local))
             QWindowSystemInterface::handleCloseEvent(window());
