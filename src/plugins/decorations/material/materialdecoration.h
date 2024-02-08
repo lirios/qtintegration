@@ -22,14 +22,7 @@ QT_BEGIN_NAMESPACE
 
 namespace QtWaylandClient {
 
-enum Button {
-    None,
-    Close,
-    Maximize,
-    Minimize
-};
-
-class Q_WAYLANDCLIENT_EXPORT QWaylandMaterialDecoration : public QWaylandAbstractDecoration
+class QWaylandMaterialDecoration : public QWaylandAbstractDecoration
 {
     Q_OBJECT
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY
@@ -37,7 +30,16 @@ class Q_WAYLANDCLIENT_EXPORT QWaylandMaterialDecoration : public QWaylandAbstrac
     Q_PROPERTY(QColor textColor READ textColor WRITE setTextColor NOTIFY textColorChanged)
     Q_PROPERTY(QColor iconColor READ iconColor WRITE setIconColor NOTIFY iconColorChanged)
 public:
+    enum Button {
+        None,
+        Close,
+        Maximize,
+        Minimize
+    };
+    Q_DECLARE_FLAGS(Buttons, Button);
+
     QWaylandMaterialDecoration();
+    virtual ~QWaylandMaterialDecoration() = default;
 
     QColor backgroundColor() const;
     void setBackgroundColor(const QColor &color);

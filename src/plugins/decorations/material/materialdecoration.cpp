@@ -16,11 +16,11 @@ QT_BEGIN_NAMESPACE
 
 namespace QtWaylandClient {
 
-#define BUTTON_WIDTH dp(24)
-#define BUTTON_SPACING dp(12)
-#define TITLE_BAR_HEIGHT dp(32)
-#define TITLE_FONT_SIZE dp(16)
-#define WINDOW_BORDER 4 // big enough to resize
+static constexpr int ceButtonWidth = 24;
+static constexpr int ceButtonSpacing = 12;
+static constexpr int ceTitlebarHeight = 32;
+static constexpr int ceTitleFontSize = 16;
+static constexpr int ceWindowBorderWidth = 4;
 
 QWaylandMaterialDecoration::QWaylandMaterialDecoration()
     : QWaylandAbstractDecoration()
@@ -81,20 +81,20 @@ void QWaylandMaterialDecoration::setIconColor(const QColor &color)
 
 QRectF QWaylandMaterialDecoration::closeButtonRect() const
 {
-    return QRectF(window()->frameGeometry().width() - BUTTON_WIDTH - BUTTON_SPACING,
-                  (margins().top() - BUTTON_WIDTH) / 2, BUTTON_WIDTH, BUTTON_WIDTH);
+    return QRectF(window()->frameGeometry().width() - ceButtonWidth - ceButtonSpacing,
+                  (margins().top() - ceButtonWidth) / 2, ceButtonWidth, ceButtonWidth);
 }
 
 QRectF QWaylandMaterialDecoration::maximizeButtonRect() const
 {
-    return QRectF(window()->frameGeometry().width() - BUTTON_WIDTH * 2 - BUTTON_SPACING * 2,
-                  (margins().top() - BUTTON_WIDTH) / 2, BUTTON_WIDTH, BUTTON_WIDTH);
+    return QRectF(window()->frameGeometry().width() - ceButtonWidth * 2 - ceButtonSpacing * 2,
+                  (margins().top() - ceButtonWidth) / 2, ceButtonWidth, ceButtonWidth);
 }
 
 QRectF QWaylandMaterialDecoration::minimizeButtonRect() const
 {
-    return QRectF(window()->frameGeometry().width() - BUTTON_WIDTH * 3 - BUTTON_SPACING * 3,
-                  (margins().top() - BUTTON_WIDTH) / 2, BUTTON_WIDTH, BUTTON_WIDTH);
+    return QRectF(window()->frameGeometry().width() - ceButtonWidth * 3 - ceButtonSpacing * 3,
+                  (margins().top() - ceButtonWidth) / 2, ceButtonWidth, ceButtonWidth);
 }
 
 QMargins QWaylandMaterialDecoration::margins(MarginsType marginsType) const
@@ -108,8 +108,9 @@ QMargins QWaylandMaterialDecoration::margins(MarginsType marginsType) const
     if (window()
         && ((window()->windowStates() & Qt::WindowMaximized)
             || (window()->windowStates() & Qt::WindowFullScreen)))
-        return QMargins(0, TITLE_BAR_HEIGHT, 0, 0);
-    return QMargins(WINDOW_BORDER, TITLE_BAR_HEIGHT, WINDOW_BORDER, WINDOW_BORDER);
+        return QMargins(0, ceTitlebarHeight, 0, 0);
+    return QMargins(ceWindowBorderWidth, ceTitlebarHeight, ceWindowBorderWidth,
+                    ceWindowBorderWidth);
 }
 
 void QWaylandMaterialDecoration::paint(QPaintDevice *device)
@@ -138,7 +139,8 @@ void QWaylandMaterialDecoration::paint(QPaintDevice *device)
     }
 
     const QRect frameGeometry = window()->frameGeometry();
-    QRect top(QPoint(WINDOW_BORDER, WINDOW_BORDER), QSize(frameGeometry.width(), margins().top()));
+    QRect top(QPoint(ceWindowBorderWidth, ceWindowBorderWidth),
+              QSize(frameGeometry.width(), margins().top()));
 
     QPainter p(device);
     p.setRenderHint(QPainter::Antialiasing);
@@ -146,9 +148,9 @@ void QWaylandMaterialDecoration::paint(QPaintDevice *device)
     // Title bar
     int radius = window()->windowStates() & Qt::WindowMaximized ? 0 : dp(3);
     QPainterPath roundedRect;
-    roundedRect.addRoundedRect(margins().left(), margins().top() - TITLE_BAR_HEIGHT,
+    roundedRect.addRoundedRect(margins().left(), margins().top() - ceTitlebarHeight,
                                frameGeometry.width() - margins().left() - margins().right(),
-                               TITLE_BAR_HEIGHT + radius * 2, radius, radius);
+                               ceTitlebarHeight + radius * 2, radius, radius);
     p.fillPath(roundedRect.simplified(), m_backgroundColor);
 
     // Borders (transparent so the border is not noticeable)
@@ -170,21 +172,21 @@ void QWaylandMaterialDecoration::paint(QPaintDevice *device)
         }
 
         QRect titleBar = top;
-        titleBar.setLeft(margins().left() + BUTTON_SPACING);
-        titleBar.setRight(qFloor(minimizeButtonRect().left()) - BUTTON_SPACING);
+        titleBar.setLeft(margins().left() + ceButtonSpacing);
+        titleBar.setRight(qFloor(minimizeButtonRect().left()) - ceButtonSpacing);
 
         p.save();
         p.setClipRect(titleBar);
         p.setPen(m_textColor);
         QSizeF size = m_windowTitle.size();
         int dx = qFloor((top.width() - size.width()) / 2);
-        int dy = qFloor((top.height() - TITLE_FONT_SIZE) / 2);
+        int dy = qFloor((top.height() - ceTitleFontSize) / 2);
         QFont font = p.font();
         font.setBold(true);
         font.setFamily("Roboto"_L1);
-        font.setPixelSize(TITLE_FONT_SIZE);
+        font.setPixelSize(ceTitleFontSize);
         p.setFont(font);
-        QPoint windowTitlePoint(dx, dy - WINDOW_BORDER / 2);
+        QPoint windowTitlePoint(dx, dy - ceWindowBorderWidth / 2);
         p.drawStaticText(windowTitlePoint, m_windowTitle);
         p.restore();
     }
